@@ -16,30 +16,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS.BasicMVC.Infrastructure", "CMS.BasicMVC.Infrastructure\CMS.BasicMVC.Infrastructure.csproj", "{1CE7B95E-DDA4-4F21-9EC6-E6E3D1F567AA}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 7
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://issolutions.visualstudio.com/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = BasicMVC\\BasicMVC.csproj
-		SccProjectName1 = BasicMVC
-		SccLocalPath1 = BasicMVC
-		SccProjectUniqueName2 = Authentication.BasicMVC\\Authentication.BasicMVC.csproj
-		SccProjectName2 = Authentication.BasicMVC
-		SccLocalPath2 = Authentication.BasicMVC
-		SccProjectUniqueName3 = Authentication.BasicMVC.Domain\\Authentication.BasicMVC.Domain.csproj
-		SccProjectName3 = Authentication.BasicMVC.Domain
-		SccLocalPath3 = Authentication.BasicMVC.Domain
-		SccProjectUniqueName4 = Authentication.BasicMVC.Infrastructure\\Authentication.BasicMVC.Infrastructure.csproj
-		SccProjectName4 = Authentication.BasicMVC.Infrastructure
-		SccLocalPath4 = Authentication.BasicMVC.Infrastructure
-		SccProjectUniqueName5 = CMS.BasicMVC.Domain\\CMS.BasicMVC.Domain.csproj
-		SccProjectName5 = CMS.BasicMVC.Domain
-		SccLocalPath5 = CMS.BasicMVC.Domain
-		SccProjectUniqueName6 = CMS.BasicMVC.Infrastructure\\CMS.BasicMVC.Infrastructure.csproj
-		SccProjectName6 = CMS.BasicMVC.Infrastructure
-		SccLocalPath6 = CMS.BasicMVC.Infrastructure
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
