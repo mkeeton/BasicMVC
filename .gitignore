@@ -1,0 +1,9 @@
+BasicMVC/obj/*
+BasicMVC.Infrastructure/obj/*
+BasicMVC.Domain/obj/*
+Authentication.BasicMVC/obj/*
+Authentication.BasicMVC.Infrastructure/obj/*
+Authentication.BasicMVC.Domain/obj/*
+CMS.BasicMVC/obj/*
+CMS.BasicMVC.Infrastructure/obj/*
+CMS.BasicMVC.Domain/obj/*
