@@ -3,3 +3,7 @@ C:\Development\Applications\C\Demo Apps\BasicMVC\CMS.BasicMVC.Infrastructure\bin
 C:\Development\Applications\C\Demo Apps\BasicMVC\CMS.BasicMVC.Infrastructure\obj\Debug\CMS.BasicMVC.Infrastructure.dll
 C:\Development\Applications\C\Demo Apps\BasicMVC\CMS.BasicMVC.Infrastructure\obj\Debug\CMS.BasicMVC.Infrastructure.pdb
 C:\Development\Applications\C\Demo Apps\BasicMVC\CMS.BasicMVC.Infrastructure\obj\Debug\CMS.BasicMVC.Infrastructure.csprojResolveAssemblyReference.cache
+C:\Development\Applications\C\Git\BasicMVC\CMS.BasicMVC.Infrastructure\bin\Debug\CMS.BasicMVC.Infrastructure.dll
+C:\Development\Applications\C\Git\BasicMVC\CMS.BasicMVC.Infrastructure\bin\Debug\CMS.BasicMVC.Infrastructure.pdb
+C:\Development\Applications\C\Git\BasicMVC\CMS.BasicMVC.Infrastructure\obj\Debug\CMS.BasicMVC.Infrastructure.dll
+C:\Development\Applications\C\Git\BasicMVC\CMS.BasicMVC.Infrastructure\obj\Debug\CMS.BasicMVC.Infrastructure.pdb

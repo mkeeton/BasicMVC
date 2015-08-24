@@ -58,6 +58,7 @@
     <Compile Include="Repositories\LoginRepository.cs" />
     <Compile Include="Repositories\SessionRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

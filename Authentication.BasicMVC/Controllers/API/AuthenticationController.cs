@@ -26,8 +26,7 @@ namespace Authentication.BasicMVC.Controllers.API
     {
 
         private ApplicationUserManager _userManager;
-        private SessionRepository _sessionRepository;
-        private LoginRepository _loginRepository;
+        private UnitOfWork _unitOfWork;
 
         public AuthenticationController()
         {
@@ -36,6 +35,22 @@ namespace Authentication.BasicMVC.Controllers.API
         public AuthenticationController(ApplicationUserManager userManager)
         {
             UserManager = userManager;
+        }
+
+        public UnitOfWork WorkManager
+        {
+          get
+          {
+            if (_unitOfWork == null)
+            {
+              _unitOfWork = new UnitOfWork(HttpContext.Current.GetOwinContext().Get<IDbContext>());
+            }
+            return _unitOfWork;
+          }
+          set
+          {
+            _unitOfWork = value;
+          }
         }
 
         public ApplicationUserManager UserManager {
@@ -47,30 +62,6 @@ namespace Authentication.BasicMVC.Controllers.API
             {
                 _userManager = value;
             }
-        }
-
-        public SessionRepository SessionManager
-        {
-          get
-          {
-            return _sessionRepository ?? new SessionRepository(HttpContext.Current.GetOwinContext().Get<IDbContext>());
-          }
-          private set
-          {
-            _sessionRepository = value;
-          }
-        }
-
-        public LoginRepository LoginManager
-        {
-          get
-          {
-            return _loginRepository ?? new LoginRepository(HttpContext.Current.GetOwinContext().Get<IDbContext>());
-          }
-          private set
-          {
-            _loginRepository = value;
-          }
         }
 
       // GET api/<controller>
@@ -87,10 +78,10 @@ namespace Authentication.BasicMVC.Controllers.API
         objReturn.Id = Guid.NewGuid();
         objReturn.ResponseCode = Domain.Models.AuthenticationResponse.AuthenticationResponseCode.Unknown;
         objReturn.RedirectURL = Request.RequestUri.Scheme + "://" + Request.RequestUri.Authority + "/Account/ConfirmLogin/";
-        ClientSession _clientSession = SessionManager.FindByClientAsync(id).Result;
+        ClientSession _clientSession = WorkManager.SessionManager.FindByClientAsync(id).Result;
         if(_clientSession==null)
         {
-          Login _Login = LoginManager.FindOpenByClientIdAsync(id).Result;
+          Login _Login = WorkManager.LoginManager.FindOpenByClientIdAsync(id).Result;
           if(_Login!=null)
           {
             objReturn.ResponseCode = Domain.Models.AuthenticationResponse.AuthenticationResponseCode.LoggedIn;
@@ -101,19 +92,7 @@ namespace Authentication.BasicMVC.Controllers.API
         { 
           objReturn.ResponseCode = Domain.Models.AuthenticationResponse.AuthenticationResponseCode.NotLoggedIn;
           objReturn.RedirectURL = Request.RequestUri.Scheme + "://" + Request.RequestUri.Authority + "/Account/Login/";
-        }
-        //if (System.Threading.Thread.CurrentPrincipal.Identity.IsAuthenticated == true)
-        //{
-        //  //objReturn.UserLogin = UserManager.Find
-        //  objReturn.ResponseCode = Domain.Models.AuthenticationResponse.AuthenticationResponseCode.LoggedIn;
-        //  objReturn.RedirectURL = "";
-        //}
-        //else
-        //{
-          
-        //  objReturn.RedirectURL = Request.RequestUri.Scheme + "://" + Request.RequestUri.Authority + "/Account/Login/";
-        //}
-        
+        }        
         return objReturn;
       }
 

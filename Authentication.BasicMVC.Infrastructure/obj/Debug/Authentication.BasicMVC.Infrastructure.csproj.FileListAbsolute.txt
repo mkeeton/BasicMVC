@@ -10,3 +10,15 @@ C:\Development\Applications\C\Demo Apps\BasicMVC\Authentication.BasicMVC.Infrast
 C:\Development\Applications\C\Demo Apps\BasicMVC\Authentication.BasicMVC.Infrastructure\obj\Debug\Authentication.BasicMVC.Infrastructure.csprojResolveAssemblyReference.cache
 C:\Development\Applications\C\Demo Apps\BasicMVC\Authentication.BasicMVC.Infrastructure\obj\Debug\Authentication.BasicMVC.Infrastructure.dll
 C:\Development\Applications\C\Demo Apps\BasicMVC\Authentication.BasicMVC.Infrastructure\obj\Debug\Authentication.BasicMVC.Infrastructure.pdb
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\bin\Debug\Authentication.BasicMVC.Infrastructure.dll
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\bin\Debug\Authentication.BasicMVC.Infrastructure.pdb
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\bin\Debug\Authentication.BasicMVC.Domain.dll
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\bin\Debug\Dapper.dll
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\bin\Debug\Authentication.BasicMVC.Domain.pdb
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\bin\Debug\Dapper.pdb
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\bin\Debug\Dapper.xml
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\obj\Debug\Authentication.BasicMVC.Infrastructure.csprojResolveAssemblyReference.cache
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\obj\Debug\Authentication.BasicMVC.Infrastructure.dll
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\obj\Debug\Authentication.BasicMVC.Infrastructure.pdb

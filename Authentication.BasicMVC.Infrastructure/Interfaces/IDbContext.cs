@@ -11,6 +11,11 @@ namespace Authentication.BasicMVC.Infrastructure.Interfaces
   {
     
     IDbConnection OpenConnection();
+    IDbConnection OpenConnection(IDbTransaction transaction);
+    IDbTransaction CurrentTransaction { get;}
+    void BeginTransaction();
+    void CommitTransaction();
+    void RollbackTransaction();
 
   }
 }

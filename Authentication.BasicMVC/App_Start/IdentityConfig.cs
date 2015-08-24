@@ -67,25 +67,6 @@ namespace Authentication.BasicMVC
             return manager;
         }
 
-        //public async Task<User> CreateLoginRecordAsync(User user,string sessionId)
-        //{
-        //  var loginStore = GetLoginStore();
-        //  await loginStore.AddLoginRecordAsync(user,sessionId).ConfigureAwait(false);
-        //  return new User();
-        //}
-
-        //public void EndLoginRecordAsync(User user, string sessionId)
-        //{
-        //  var loginStore = GetLoginStore();
-        //  loginStore.EndLoginRecordAsync(user, sessionId).ConfigureAwait(false);
-        //}
-
-        //public void EndSessionLoginRecordsAsync(string sessionId)
-        //{
-        //  var loginStore = GetLoginStore();
-        //  loginStore.EndSessionLoginRecordsAsync(sessionId).ConfigureAwait(false);
-        //}
-
         // IUserLoginStore methods
         private Authentication.BasicMVC.Infrastructure.Repositories.UserStore<User> GetLoginStore()
         {

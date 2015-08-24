@@ -44,8 +44,8 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
         return Task.Factory.StartNew(() =>
         {
           clientSession.Id = Guid.NewGuid();
-          using (IDbConnection connection = CurrentContext.OpenConnection())
-            connection.Execute("insert into auth_ClientSessions(Id, LocalSessionID, ClientSessionID, LoginID) values(@Id, @LocalSessionID, @ClientSessionID, @LoginID)", clientSession);
+          IDbConnection connection = CurrentContext.OpenConnection(CurrentContext.CurrentTransaction);
+          connection.Execute("insert into auth_ClientSessions(Id, LocalSessionID, ClientSessionID, LoginID) values(@Id, @LocalSessionID, @ClientSessionID, @LoginID)", clientSession, CurrentContext.CurrentTransaction);
         });
       }
       else
@@ -63,8 +63,8 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
-          connection.Execute("delete from auth_ClientSessions where Id = @Id", new { clientSession.Id });
+        IDbConnection connection = CurrentContext.OpenConnection(CurrentContext.CurrentTransaction);
+        connection.Execute("delete from auth_ClientSessions where Id = @Id", new { clientSession.Id }, CurrentContext.CurrentTransaction);
       });
     }
 
@@ -75,8 +75,8 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
-          connection.Execute("update auth_Users set LocalSessionID=@LocalSessionID, ClientSessionID=@ClientSessionID, LoginID=@LoginID where ID = @ID", clientSession);
+        IDbConnection connection = CurrentContext.OpenConnection(CurrentContext.CurrentTransaction);
+        connection.Execute("update auth_ClientSessions set LocalSessionID=@LocalSessionID, ClientSessionID=@ClientSessionID, LoginID=@LoginID where ID = @ID", clientSession, CurrentContext.CurrentTransaction);
       });
     }
 
@@ -87,8 +87,8 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
-          return connection.Query<ClientSession>("select * from auth_ClientSessions where Id = @Id", new { Id = Id }).SingleOrDefault();
+        using(IDbConnection connection = CurrentContext.OpenConnection())
+        return connection.Query<ClientSession>("select * from auth_ClientSessions where Id = @Id", new { Id = Id }).SingleOrDefault();
       });
     }
 
@@ -99,8 +99,8 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
-          return connection.Query<ClientSession>("select * from auth_ClientSessions where ClientSessionID = @ClientSessionId AND LoginID IS NULL", new { ClientSessionId = clientSessionID }).SingleOrDefault();
+        using(IDbConnection connection = CurrentContext.OpenConnection())
+        return connection.Query<ClientSession>("select * from auth_ClientSessions where ClientSessionID = @ClientSessionId AND LoginID IS NULL", new { ClientSessionId = clientSessionID }).SingleOrDefault();
       });
     }
 
@@ -111,8 +111,8 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
-          return connection.Query<ClientSession>("select * from auth_ClientSessions where LocalSessionID = @ClientSessionId AND ClientSessionID = @LocalSessionId AND LoginID IS NULL", new { ClientSessionId = clientSessionID, LocalSessionId = localSessionID }).SingleOrDefault();
+        using(IDbConnection connection = CurrentContext.OpenConnection())
+        return connection.Query<ClientSession>("select * from auth_ClientSessions where LocalSessionID = @ClientSessionId AND ClientSessionID = @LocalSessionId AND LoginID IS NULL", new { ClientSessionId = clientSessionID, LocalSessionId = localSessionID }).SingleOrDefault();
       });
     }
 
@@ -124,8 +124,8 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
         throw new ArgumentNullException("Login");
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
-          connection.Execute("Update auth_ClientSessions SET LoginID=@LoginID where LocalSessionID = @LocalSessionID AND LoginID IS NULL", new { LoginID=login.Id, LocalSessionID = sessionId });
+        IDbConnection connection = CurrentContext.OpenConnection(CurrentContext.CurrentTransaction);
+        connection.Execute("Update auth_ClientSessions SET LoginID=@LoginID where LocalSessionID = @LocalSessionID AND LoginID IS NULL", new { LoginID = login.Id, LocalSessionID = sessionId }, CurrentContext.CurrentTransaction);
       });
     }
   }

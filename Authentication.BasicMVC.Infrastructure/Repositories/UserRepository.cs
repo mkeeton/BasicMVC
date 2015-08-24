@@ -46,8 +46,8 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
         return Task.Factory.StartNew(() =>
         {
           user.Id = Guid.NewGuid();
-          using (IDbConnection connection = CurrentContext.OpenConnection())
-            connection.Execute("insert into auth_Users(Id, UserName, PasswordHash, SecurityStamp, Email, EmailConfirmed) values(@Id, @userName, @passwordHash, @securityStamp, @email, @emailConfirmed)", user);
+          using(IDbConnection connection = CurrentContext.OpenConnection())
+          connection.Execute("insert into auth_Users(Id, UserName, PasswordHash, SecurityStamp, Email, EmailConfirmed) values(@Id, @userName, @passwordHash, @securityStamp, @email, @emailConfirmed)", user);
         });
       }
       else
@@ -64,7 +64,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
+        using(IDbConnection connection = CurrentContext.OpenConnection())
           connection.Execute("delete from auth_Users where Id = @Id", new { user.Id });
       });
     }
@@ -76,7 +76,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
+        using(IDbConnection connection = CurrentContext.OpenConnection())
           return connection.Query<User>("select * from auth_Users where Id = @Id", new { Id = userId }).SingleOrDefault();
       });
     }
@@ -88,7 +88,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
+        using(IDbConnection connection = CurrentContext.OpenConnection())
           return connection.Query<User>("select * from auth_Users where lower(UserName) = lower(@userName)", new { userName }).SingleOrDefault();
       });
     }
@@ -100,7 +100,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
+        using(IDbConnection connection = CurrentContext.OpenConnection())
           connection.Execute("update auth_Users set UserName = @userName, PasswordHash = @passwordHash, SecurityStamp = @securityStamp where Id = @Id", user);
       });
     }
@@ -117,7 +117,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
+        using(IDbConnection connection = CurrentContext.OpenConnection())
           connection.Execute("INSERT INTO auth_ExternalLogins(Id, UserId, LoginProvider, ProviderKey) values(@Id, @userId, @loginProvider, @providerKey)",
               new { Id = Guid.NewGuid(), userId = user.Id, loginProvider = login.LoginProvider, providerKey = login.ProviderKey });
       });
@@ -130,7 +130,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
+        using(IDbConnection connection = CurrentContext.OpenConnection())
           return connection.Query<User>("SELECT u.* FROM auth_Users u INNER JOIN auth_ExternalLogins l ON l.UserId = u.Id WHERE l.LoginProvider = @loginProvider AND l.ProviderKey = @providerKey",
               login).SingleOrDefault();
       });
@@ -143,7 +143,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
+        using(IDbConnection connection = CurrentContext.OpenConnection())
           return (IList<UserLoginInfo>)connection.Query<UserLoginInfo>("SELECT LoginProvider, ProviderKey FROM auth_ExternalLogins WHERE UserId = @userId", new { userId = user.Id }).ToList();
       });
     }
@@ -163,7 +163,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
+        using(IDbConnection connection = CurrentContext.OpenConnection())
           connection.Execute("delete from auth_ExternalLogins where UserId = @userId and ((@loginProvider='' AND @providerKey='') OR (LoginProvider = @loginProvider and ProviderKey = @providerKey))",
               new { userId=user.Id, login.LoginProvider, login.ProviderKey });
       });
@@ -183,7 +183,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
         return Task.Factory.StartNew(() =>
         {
           login.Id = Guid.NewGuid();
-          using (IDbConnection connection = CurrentContext.OpenConnection())
+          using(IDbConnection connection = CurrentContext.OpenConnection())
             connection.Execute("insert into auth_Users(Id, UserName, PasswordHash, SecurityStamp, Email, EmailConfirmed) values(@Id, @userName, @passwordHash, @securityStamp, @email, @emailConfirmed)", login);
         });
       }
@@ -201,7 +201,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
+        using(IDbConnection connection = CurrentContext.OpenConnection())
           connection.Execute("delete from auth_Users where Id = @Id", new { login.Id });
       });
     }
@@ -213,7 +213,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
+        using(IDbConnection connection = CurrentContext.OpenConnection())
           return connection.Query<User>("select * from auth_Users where Id = @Id", new { Id = loginId }).SingleOrDefault();
       });
     }
@@ -225,7 +225,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
+        using(IDbConnection connection = CurrentContext.OpenConnection())
           return connection.Query<User>("select * from auth_Users where lower(UserName) = lower(@userName)", new { userId }).SingleOrDefault();
       });
     }
@@ -237,7 +237,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
+        using(IDbConnection connection = CurrentContext.OpenConnection())
           connection.Execute("update auth_Users set UserName = @userName, PasswordHash = @passwordHash, SecurityStamp = @securityStamp where Id = @Id", login);
       });
     }
@@ -297,7 +297,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using (IDbConnection connection = CurrentContext.OpenConnection())
+        using(IDbConnection connection = CurrentContext.OpenConnection())
           return connection.Query<User>("select * from auth_Users where lower(Email) = lower(@Email)", new { email }).SingleOrDefault();
       });
     }
