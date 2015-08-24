@@ -10,13 +10,14 @@ using Authentication.BasicMVC.Domain;
 using Authentication.BasicMVC.Models;
 using Authentication.BasicMVC.Infrastructure;
 using Authentication.BasicMVC.Domain.Models;
-using Authentication.BasicMVC.Infrastructure.Interfaces;
+//using Authentication.BasicMVC.Infrastructure.Interfaces;
 using Authentication.BasicMVC.Infrastructure.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Owin;
 using System.Web.Http.Cors;
+using BasicMVC.Core.Data.Interfaces;
 
 namespace Authentication.BasicMVC.Controllers.API
 {

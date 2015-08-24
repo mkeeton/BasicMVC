@@ -4,9 +4,10 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Authentication.BasicMVC.Models;
 using Authentication.BasicMVC.Domain.Models;
-using Authentication.BasicMVC.Infrastructure.Interfaces;
+//using Authentication.BasicMVC.Infrastructure.Interfaces;
 using Authentication.BasicMVC.Infrastructure.Repositories;
 using System.Security.Claims;
+using BasicMVC.Core.Data.Interfaces;
 
 namespace Authentication.BasicMVC
 {

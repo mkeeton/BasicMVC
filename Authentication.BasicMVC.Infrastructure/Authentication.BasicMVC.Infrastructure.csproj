@@ -51,16 +51,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\DapperDbContext.cs" />
     <Compile Include="Repositories\DbContext.cs" />
     <Compile Include="Repositories\LoginRepository.cs" />
     <Compile Include="Repositories\SessionRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
@@ -68,6 +68,14 @@
     <ProjectReference Include="..\Authentication.BasicMVC.Domain\Authentication.BasicMVC.Domain.csproj">
       <Project>{2442a503-9f17-4268-9bb0-503117460e47}</Project>
       <Name>Authentication.BasicMVC.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BasicMVC.Core.Data\BasicMVC.Core.Data.csproj">
+      <Project>{7273be90-7354-4c11-8545-9cd33a4a3a88}</Project>
+      <Name>BasicMVC.Core.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BasicMVC.Core.Domain\BasicMVC.Core.Domain.csproj">
+      <Project>{6a7194c3-4f9c-4478-9782-7a6f889dda8b}</Project>
+      <Name>BasicMVC.Core.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Authentication.BasicMVC.Domain.Models;
 using Authentication.BasicMVC.Domain.Repositories;
-using Authentication.BasicMVC.Infrastructure.Interfaces;
+//using Authentication.BasicMVC.Infrastructure.Interfaces;
 using System.Data;
 using Dapper;
 using Microsoft.AspNet.Identity;
+using BasicMVC.Core.Data.Interfaces;
 
 namespace Authentication.BasicMVC.Infrastructure.Repositories
 {
@@ -25,10 +26,10 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
       this.CurrentContext = context;
     }
 
-    public UserStore()
-    {
-      this.CurrentContext = DbContext.Create();
-    }
+    //public UserStore()
+    //{
+    //  this.CurrentContext = DbContext.Create();
+    //}
 
     public void Dispose()
     {

@@ -36,3 +36,6 @@ C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Domain\bin\De
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Domain\bin\Debug\Newtonsoft.Json.xml
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Domain\obj\Debug\Authentication.BasicMVC.Domain.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Domain\obj\Debug\Authentication.BasicMVC.Domain.pdb
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Domain\obj\Debug\Authentication.BasicMVC.Domain.csprojResolveAssemblyReference.cache
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Domain\bin\Debug\BasicMVC.Core.Domain.dll
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Domain\bin\Debug\BasicMVC.Core.Domain.pdb

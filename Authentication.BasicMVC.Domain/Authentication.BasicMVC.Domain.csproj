@@ -80,6 +80,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BasicMVC.Core.Domain\BasicMVC.Core.Domain.csproj">
+      <Project>{6a7194c3-4f9c-4478-9782-7a6f889dda8b}</Project>
+      <Name>BasicMVC.Core.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

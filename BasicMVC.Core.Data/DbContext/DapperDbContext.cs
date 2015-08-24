@@ -5,30 +5,35 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web.Configuration;
 
-namespace Authentication.BasicMVC.Infrastructure.Repositories
+namespace BasicMVC.Core.Data.DbContext
 {
   public class DapperDbContext : Interfaces.IDbContext
   {
 
+    string _connectionString;
     IDbTransaction _transaction = null;
+
+    public DapperDbContext(string connectionString)
+    {
+      _connectionString = connectionString;
+    }
 
     public IDbConnection OpenConnection()
     {
-      IDbConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+      IDbConnection connection = new SqlConnection(_connectionString);
       connection.Open();
       return connection;
     }
 
     public IDbConnection OpenConnection(IDbTransaction transaction)
     {
-      if(transaction == null || transaction.Connection == null)
+      if (transaction == null || transaction.Connection == null)
       {
         return OpenConnection();
       }
       else
-      { 
+      {
         return transaction.Connection;
       }
     }
@@ -60,7 +65,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
     public void Dispose()
     {
-      
+
     }
   }
 }

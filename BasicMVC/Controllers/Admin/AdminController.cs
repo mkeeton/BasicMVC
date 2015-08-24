@@ -14,6 +14,7 @@ namespace BasicMVC.Controllers.Admin
         }
 
         // GET: Admin
+        [Authorize]
         public ActionResult Index()
         {
             return View("~/Views/Admin/Dashboard.cshtml");

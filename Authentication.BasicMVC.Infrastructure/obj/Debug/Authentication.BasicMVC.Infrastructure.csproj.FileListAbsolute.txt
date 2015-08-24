@@ -22,3 +22,7 @@ C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructur
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\obj\Debug\Authentication.BasicMVC.Infrastructure.csprojResolveAssemblyReference.cache
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\obj\Debug\Authentication.BasicMVC.Infrastructure.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\obj\Debug\Authentication.BasicMVC.Infrastructure.pdb
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\bin\Debug\BasicMVC.Core.Domain.dll
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\bin\Debug\BasicMVC.Core.Domain.pdb
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\bin\Debug\BasicMVC.Core.Data.dll
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC.Infrastructure\bin\Debug\BasicMVC.Core.Data.pdb

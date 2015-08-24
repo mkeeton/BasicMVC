@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using BasicMVC.Core.Domain.Interfaces.Authentication;
 
 namespace Authentication.BasicMVC.Domain.Models
 {
-    public class User : IUser<Guid>
+  public class User : IUser<Guid>, ICoreUser<Guid>
     {
         public Guid Id { get; set; }
         public string UserName { get; set; }

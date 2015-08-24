@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Authentication.BasicMVC.Domain.Models;
-using Authentication.BasicMVC.Infrastructure.Interfaces;
+//using Authentication.BasicMVC.Infrastructure.Interfaces;
 using Authentication.BasicMVC.Infrastructure.Repositories;
+using BasicMVC.Core.Data.DbContext;
+using BasicMVC.Core.Data.Interfaces;
 
 namespace Authentication.BasicMVC.Infrastructure
 {
@@ -23,10 +25,10 @@ namespace Authentication.BasicMVC.Infrastructure
       this._dbContext = context;
     }
 
-    public UnitOfWork()
-    {
-      this._dbContext = DbContext.Create();
-    }
+    //public UnitOfWork()
+    //{
+    //  this._dbContext = DbContext.Create();
+    //}
 
     public void Dispose()
     {

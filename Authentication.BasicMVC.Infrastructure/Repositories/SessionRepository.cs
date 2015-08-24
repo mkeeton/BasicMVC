@@ -7,7 +7,8 @@ using System.Data;
 using Dapper;
 using Authentication.BasicMVC.Domain.Models;
 using Authentication.BasicMVC.Domain.Repositories;
-using Authentication.BasicMVC.Infrastructure.Interfaces;
+//using Authentication.BasicMVC.Infrastructure.Interfaces;
+using BasicMVC.Core.Data.Interfaces;
 
 namespace Authentication.BasicMVC.Infrastructure.Repositories
 {
@@ -24,10 +25,10 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
       this.CurrentContext = context;
     }
 
-    public SessionRepository()
-    {
-      this.CurrentContext = DbContext.Create();
-    }
+    //public SessionRepository()
+    //{
+    //  this.CurrentContext = DbContext.Create();
+    //}
 
     public void Dispose()
     {

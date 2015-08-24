@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.Configuration;
+using BasicMVC.Core.Data.DbContext;
+using BasicMVC.Core.Data.Interfaces;
 
 namespace Authentication.BasicMVC.Infrastructure.Repositories
 {
-    public class DbContext
-    {
+  public class DbContext
+  {
 
-        public static Interfaces.IDbContext Create()
-        {
-          return new DapperDbContext();
-        }
+    public static IDbContext Create()
+    {
+      return new DapperDbContext(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
     }
+  }
 }

@@ -11,8 +11,9 @@ using Microsoft.Owin.Security;
 using Owin;
 using Authentication.BasicMVC.Models;
 using Authentication.BasicMVC.Domain.Models;
-using Authentication.BasicMVC.Infrastructure.Interfaces;
+//using Authentication.BasicMVC.Infrastructure.Interfaces;
 using Authentication.BasicMVC.Infrastructure;
+using BasicMVC.Core.Data.Interfaces;
 
 namespace Authentication.BasicMVC.Controllers
 {

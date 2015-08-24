@@ -144,3 +144,7 @@ C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Dapper.xm
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\obj\Debug\Authentication.BasicMVC.csprojResolveAssemblyReference.cache
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\obj\Debug\Authentication.BasicMVC.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\obj\Debug\Authentication.BasicMVC.pdb
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\BasicMVC.Core.Domain.dll
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\BasicMVC.Core.Domain.pdb
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\BasicMVC.Core.Data.dll
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\BasicMVC.Core.Data.pdb

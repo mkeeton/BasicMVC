@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 
-namespace Authentication.BasicMVC.Infrastructure.Interfaces
+namespace BasicMVC.Core.Data.Interfaces
 {
   public interface IDbContext : IDisposable
   {
-    
+
     IDbConnection OpenConnection();
     IDbConnection OpenConnection(IDbTransaction transaction);
-    IDbTransaction CurrentTransaction { get;}
+    IDbTransaction CurrentTransaction { get; }
     void BeginTransaction();
     void CommitTransaction();
     void RollbackTransaction();
