@@ -10,6 +10,7 @@ using Owin;
 using System;
 using Authentication.BasicMVC.Models;
 using Authentication.BasicMVC.Domain.Models;
+using Authentication.BasicMVC.Infrastructure;
 using Authentication.BasicMVC.Infrastructure.Repositories;
 
 namespace Authentication.BasicMVC
@@ -21,6 +22,8 @@ namespace Authentication.BasicMVC
         {
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(DbContext.Create);
+            app.CreatePerOwinContext<UnitOfWork>(UnitOfWork.Create);
+            app.CreatePerOwinContext<App_Start.OwinSettings>(App_Start.OwinSettings.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user

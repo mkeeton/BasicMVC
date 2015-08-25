@@ -16,6 +16,28 @@ namespace Authentication.BasicMVC.Infrastructure
     private IDbContext _dbContext;
     private SessionRepository _sessionRepository;
     private LoginRepository _loginRepository;
+    private UserStore<User> _userRepository;
+
+    public static UnitOfWork Create()
+    {
+      return new UnitOfWork();
+    }
+
+    public IDbContext DbContext
+    {
+      get
+      {
+        return _dbContext;
+      }
+      set
+      {
+        _dbContext = value;
+      }
+    }
+
+    public UnitOfWork()
+    {
+    }
 
     public UnitOfWork(IDbContext context)
     {
@@ -78,6 +100,22 @@ namespace Authentication.BasicMVC.Infrastructure
       private set
       {
         _loginRepository = value;
+      }
+    }
+
+    public UserStore<User> UserManager
+    {
+      get
+      {
+        if (_userRepository == null)
+        {
+          _userRepository = new UserStore<User>(_dbContext);
+        }
+        return _userRepository;
+      }
+      private set
+      {
+        _userRepository = value;
       }
     }
 

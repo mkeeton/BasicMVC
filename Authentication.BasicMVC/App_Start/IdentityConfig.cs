@@ -8,6 +8,7 @@ using Authentication.BasicMVC.Domain.Models;
 using Authentication.BasicMVC.Infrastructure.Repositories;
 using System.Security.Claims;
 using BasicMVC.Core.Data.Interfaces;
+using Authentication.BasicMVC.Infrastructure;
 
 namespace Authentication.BasicMVC
 {
@@ -32,7 +33,7 @@ namespace Authentication.BasicMVC
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
-            var manager = new ApplicationUserManager(new UserStore<User>(context.Get<IDbContext>()));
+            var manager = new ApplicationUserManager(context.Get<UnitOfWork>().UserManager);
             // Configure validation logic for usernames
             Controllers.UserValidator UserVal  = new Controllers.UserValidator(manager);
             UserVal.AllowOnlyAlphanumericUserNames = false;

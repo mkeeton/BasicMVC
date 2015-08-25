@@ -13,6 +13,7 @@ namespace BasicMVC.Core.Data.Interfaces
     IDbConnection OpenConnection();
     IDbConnection OpenConnection(IDbTransaction transaction);
     IDbTransaction CurrentTransaction { get; }
+    string ConnectionString { get; set; }
     void BeginTransaction();
     void CommitTransaction();
     void RollbackTransaction();

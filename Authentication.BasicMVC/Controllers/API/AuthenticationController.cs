@@ -27,7 +27,7 @@ namespace Authentication.BasicMVC.Controllers.API
     {
 
         private ApplicationUserManager _userManager;
-        private UnitOfWork _unitOfWork;
+        //private UnitOfWork _unitOfWork;
 
         public AuthenticationController()
         {
@@ -38,21 +38,21 @@ namespace Authentication.BasicMVC.Controllers.API
             UserManager = userManager;
         }
 
-        public UnitOfWork WorkManager
-        {
-          get
-          {
-            if (_unitOfWork == null)
-            {
-              _unitOfWork = new UnitOfWork(HttpContext.Current.GetOwinContext().Get<IDbContext>());
-            }
-            return _unitOfWork;
-          }
-          set
-          {
-            _unitOfWork = value;
-          }
-        }
+        //public UnitOfWork WorkManager
+        //{
+        //  get
+        //  {
+        //    if (_unitOfWork == null)
+        //    {
+        //      _unitOfWork = new UnitOfWork(HttpContext.Current.GetOwinContext().Get<IDbContext>());
+        //    }
+        //    return _unitOfWork;
+        //  }
+        //  set
+        //  {
+        //    _unitOfWork = value;
+        //  }
+        //}
 
         public ApplicationUserManager UserManager {
             get
@@ -79,10 +79,10 @@ namespace Authentication.BasicMVC.Controllers.API
         objReturn.Id = Guid.NewGuid();
         objReturn.ResponseCode = Domain.Models.AuthenticationResponse.AuthenticationResponseCode.Unknown;
         objReturn.RedirectURL = Request.RequestUri.Scheme + "://" + Request.RequestUri.Authority + "/Account/ConfirmLogin/";
-        ClientSession _clientSession = WorkManager.SessionManager.FindByClientAsync(id).Result;
+        ClientSession _clientSession = HttpContext.Current.GetOwinContext().Get<UnitOfWork>().SessionManager.FindByClientAsync(id).Result;
         if(_clientSession==null)
         {
-          Login _Login = WorkManager.LoginManager.FindOpenByClientIdAsync(id).Result;
+          Login _Login = HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenByClientIdAsync(id).Result;
           if(_Login!=null)
           {
             objReturn.ResponseCode = Domain.Models.AuthenticationResponse.AuthenticationResponseCode.LoggedIn;

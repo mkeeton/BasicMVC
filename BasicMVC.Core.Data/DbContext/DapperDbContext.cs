@@ -14,9 +14,25 @@ namespace BasicMVC.Core.Data.DbContext
     string _connectionString;
     IDbTransaction _transaction = null;
 
+    public DapperDbContext()
+    {
+    }
+
     public DapperDbContext(string connectionString)
     {
       _connectionString = connectionString;
+    }
+
+    public string ConnectionString
+    {
+      get
+      {
+        return _connectionString;
+      }
+      set
+      {
+        _connectionString = value;
+      }
     }
 
     public IDbConnection OpenConnection()
@@ -48,19 +64,19 @@ namespace BasicMVC.Core.Data.DbContext
 
     public void BeginTransaction()
     {
-      _transaction = OpenConnection().BeginTransaction();
+     // _transaction = OpenConnection().BeginTransaction();
     }
 
     public void CommitTransaction()
     {
-      _transaction.Commit();
-      _transaction = null;
+     // _transaction.Commit();
+     // _transaction = null;
     }
 
     public void RollbackTransaction()
     {
-      _transaction.Rollback();
-      _transaction = null;
+    //  _transaction.Rollback();
+    //  _transaction = null;
     }
 
     public void Dispose()

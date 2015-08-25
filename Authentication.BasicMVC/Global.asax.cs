@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Authentication.BasicMVC.Models;
 using Authentication.BasicMVC.Domain.Models;
-//using Authentication.BasicMVC.Infrastructure.Interfaces;
+using Authentication.BasicMVC.Infrastructure;
 using Authentication.BasicMVC.Infrastructure.Repositories;
 using BasicMVC.Core.Data.Interfaces;
 
@@ -28,9 +28,14 @@ namespace Authentication.BasicMVC
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
+        protected void Application_BeginRequest()
+        {
+          
+        }
+
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
-
+          
         }
 
         protected void Session_Start(Object sender, EventArgs e)

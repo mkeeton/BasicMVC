@@ -22,7 +22,7 @@ namespace Authentication.BasicMVC.Controllers
     public class AccountController : Controller
     {
         private ApplicationUserManager _userManager;
-        private UnitOfWork _unitOfWork;
+        //private UnitOfWork _unitOfWork;
 
         public AccountController()
         {
@@ -33,21 +33,21 @@ namespace Authentication.BasicMVC.Controllers
             UserManager = userManager;
         }
 
-        public UnitOfWork WorkManager
-        {
-          get
-          {
-            if(_unitOfWork == null)
-            {
-              _unitOfWork = new UnitOfWork(HttpContext.GetOwinContext().Get<IDbContext>());
-            }
-            return _unitOfWork;
-          }
-          set
-          {
-            _unitOfWork = value;
-          }
-        }
+        //public UnitOfWork WorkManager
+        //{
+        //  get
+        //  {
+        //    if(_unitOfWork == null)
+        //    {
+        //      _unitOfWork = new UnitOfWork(HttpContext.GetOwinContext().Get<IDbContext>());
+        //    }
+        //    return _unitOfWork;
+        //  }
+        //  set
+        //  {
+        //    _unitOfWork = value;
+        //  }
+        //}
 
         public ApplicationUserManager UserManager {
             get
@@ -65,14 +65,14 @@ namespace Authentication.BasicMVC.Controllers
         [AllowAnonymous]
         public ActionResult ConfirmLogin(string sessionID, string returnUrl)
         {
-          WorkManager.BeginWork();
+          HttpContext.GetOwinContext().Get<UnitOfWork>().BeginWork();
           ClientSession _session = new ClientSession();
           _session.ClientSessionID = new Guid(sessionID);
           _session.LocalSessionID = Session.SessionID;
-          WorkManager.SessionManager.CreateAsync(_session);
+          HttpContext.GetOwinContext().Get<UnitOfWork>().SessionManager.CreateAsync(_session);
           if (Request.IsAuthenticated == true)
           {
-            Login _login = WorkManager.LoginManager.FindOpenBySessionAsync(Session.SessionID).Result;
+            Login _login = HttpContext.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenBySessionAsync(Session.SessionID).Result;
             if(_login==null)
             {
               User user = UserManager.FindById(new Guid(User.Identity.GetUserId()));
@@ -82,11 +82,11 @@ namespace Authentication.BasicMVC.Controllers
               }
               else
               {
-                WorkManager.LoginManager.AddLoginRecordAsync(user,Session.SessionID);
+                HttpContext.GetOwinContext().Get<UnitOfWork>().LoginManager.AddLoginRecordAsync(user, Session.SessionID);
               }
             }
-            WorkManager.SessionManager.AssignLoginToSessions(Session.SessionID, _login);
-            WorkManager.CommitWork();
+            HttpContext.GetOwinContext().Get<UnitOfWork>().SessionManager.AssignLoginToSessions(Session.SessionID, _login);
+            HttpContext.GetOwinContext().Get<UnitOfWork>().CommitWork();
             if (returnUrl == null || returnUrl == "")
             {
               return RedirectToAction("Manage", "Account");
@@ -99,12 +99,12 @@ namespace Authentication.BasicMVC.Controllers
           }
           else
           {
-            Login _openLogin = WorkManager.LoginManager.FindOpenBySessionAsync(Session.SessionID).Result;
+            Login _openLogin = HttpContext.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenBySessionAsync(Session.SessionID).Result;
             if(_openLogin!=null)
             {
-              WorkManager.LoginManager.LogoutAsync(_openLogin);
+              HttpContext.GetOwinContext().Get<UnitOfWork>().LoginManager.LogoutAsync(_openLogin);
             }
-            WorkManager.CommitWork();
+            HttpContext.GetOwinContext().Get<UnitOfWork>().CommitWork();
             if (returnUrl == "")
             {
               return RedirectToAction("Login");
@@ -569,7 +569,7 @@ namespace Authentication.BasicMVC.Controllers
         {
             var currentUser = UserManager.FindById(new Guid(User.Identity.GetUserId()));
             UserManager.RemoveLoginAsync(new Guid(User.Identity.GetUserId()), new UserLoginInfo("", ""));
-            WorkManager.LoginManager.EndSessionLoginRecordsAsync(Session.SessionID);
+            HttpContext.GetOwinContext().Get<UnitOfWork>().LoginManager.EndSessionLoginRecordsAsync(Session.SessionID);
             AuthenticationManager.SignOut();
             return RedirectToAction("Login", "Account");
         }
@@ -616,8 +616,8 @@ namespace Authentication.BasicMVC.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, await UserManager.GenerateUserIdentityAsync(user));
-            Login _login = WorkManager.LoginManager.AddLoginRecordAsync(user, Session.SessionID);
-            await WorkManager.SessionManager.AssignLoginToSessions(Session.SessionID, _login);
+            Login _login = HttpContext.GetOwinContext().Get<UnitOfWork>().LoginManager.AddLoginRecordAsync(user, Session.SessionID);
+            await HttpContext.GetOwinContext().Get<UnitOfWork>().SessionManager.AssignLoginToSessions(Session.SessionID, _login);
         }
 
         private void AddErrors(IdentityResult result)
