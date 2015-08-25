@@ -135,6 +135,7 @@ namespace Authentication.BasicMVC.Controllers
           }
           else
           {
+            ViewBag.SessionID = sessionID;
             if(returnUrl == "")
             {
               ViewBag.ReturnUrl = Request.UrlReferrer.PathAndQuery;
@@ -152,7 +153,7 @@ namespace Authentication.BasicMVC.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model, string sessionID, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -160,11 +161,27 @@ namespace Authentication.BasicMVC.Controllers
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
-                    return Redirect(returnUrl);
+                    if (returnUrl == null || returnUrl == "")
+                    {
+                      return RedirectToAction("Manage", "Account");
+                    }
+                    else
+                    {
+                      return Redirect(returnUrl);
+                    }
                 }
                 else
                 {
                     ModelState.AddModelError("", "Invalid username or password.");
+                    ViewBag.SessionID = sessionID;
+                    if (returnUrl == "")
+                    {
+                      ViewBag.ReturnUrl = Request.UrlReferrer.PathAndQuery;
+                    }
+                    else
+                    {
+                      ViewBag.ReturnUrl = returnUrl;
+                    }
                 }
             }
 
@@ -175,9 +192,18 @@ namespace Authentication.BasicMVC.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(string sessionID, string returnUrl)
         {
-            return View();
+          ViewBag.SessionID = sessionID;
+          if (returnUrl == "")
+          {
+            ViewBag.ReturnUrl = Request.UrlReferrer.PathAndQuery;
+          }
+          else
+          {
+            ViewBag.ReturnUrl = returnUrl;
+          }
+          return View();
         }
 
         //
@@ -185,7 +211,7 @@ namespace Authentication.BasicMVC.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, string sessionID, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -205,20 +231,22 @@ namespace Authentication.BasicMVC.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    //if(returnUrl=="")
-                    //{ 
+                    if(returnUrl=="")
+                    { 
                       return RedirectToAction("Manage", "Account");
-                   // }
-                   // else
-                   // {
-                   //   Redirect(returnUrl);
-                   // }
+                    }
+                    else
+                    {
+                      return Redirect(returnUrl);
+                    }
                 }
                 else
                 {
                     AddErrors(result);
                 }
             }
+            ViewBag.SessionID = sessionID;
+            ViewBag.ReturnUrl = returnUrl;
 
             // If we got this far, something failed, redisplay form
             return View(model);
