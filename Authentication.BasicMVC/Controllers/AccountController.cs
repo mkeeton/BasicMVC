@@ -72,7 +72,7 @@ namespace Authentication.BasicMVC.Controllers
           await HttpContext.GetOwinContext().Get<UnitOfWork>().SessionManager.CreateAsync(_session);
           if (Request.IsAuthenticated == true)
           {
-            Login _login = HttpContext.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenBySessionAsync(Session.SessionID).Result;
+            Login _login = await HttpContext.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenBySessionAsync(Session.SessionID);
             if(_login==null)
             {
               User user = UserManager.FindById(new Guid(User.Identity.GetUserId()));
@@ -99,7 +99,7 @@ namespace Authentication.BasicMVC.Controllers
           }
           else
           {
-            Login _openLogin = HttpContext.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenBySessionAsync(Session.SessionID).Result;
+            Login _openLogin = await HttpContext.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenBySessionAsync(Session.SessionID);
             if(_openLogin!=null)
             {
               await HttpContext.GetOwinContext().Get<UnitOfWork>().LoginManager.LogoutAsync(_openLogin);
