@@ -73,7 +73,8 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
     {
       if (clientSession == null)
         throw new ArgumentNullException("user");
-
+      if(clientSession.LoginID == Guid.Empty)
+        clientSession.LoginID = null;
       return Task.Factory.StartNew(() =>
       {
         IDbConnection connection = CurrentContext.OpenConnection(CurrentContext.CurrentTransaction);
@@ -123,6 +124,10 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
         throw new ArgumentNullException("clientSession");
       if (login == null)
         throw new ArgumentNullException("Login");
+      if (login.Id == Guid.Empty)
+      { 
+        throw new ArgumentNullException("Login Id: " + login.Id.ToString());
+      }
       return Task.Factory.StartNew(() =>
       {
         IDbConnection connection = CurrentContext.OpenConnection(CurrentContext.CurrentTransaction);

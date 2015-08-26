@@ -35,7 +35,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
     }
 
-    public virtual Login AddLoginRecordAsync(User user, String sessionId)
+    public async Task<Login> AddLoginRecordAsync(User user, String sessionId)
     {
       if (user == null)
         throw new ArgumentNullException("user");
@@ -44,37 +44,37 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
       _login.SessionId = sessionId;
       _login.UserId=user.Id;
       _login.LoginDate = System.DateTime.Now;
-      AddLoginRecordAsync(_login);
+      _login = await AddLoginRecordAsync(_login);
       return _login;
     }
 
-    public virtual Task AddLoginRecordAsync(Login login)
+    public async Task<Login> AddLoginRecordAsync(Login login)
     {
       if (login == null)
         throw new ArgumentNullException("login");
       Login owner = null;
       if(login.Id==Guid.Empty)
       {
-        this.FindOpenBySessionAsync(login.SessionId);
+        owner = this.FindOpenBySessionAsync(login.SessionId).Result;
       }
       else
       {
-        //this.FindById(login.Id);
+        owner = login;//this.FindById(login.Id);
       }
       if ((owner == null))// || (owner.Result == null))
       {
-        return Task.Factory.StartNew(() =>
+        await Task.Factory.StartNew(() =>
         {
           login.Id = Guid.NewGuid();
           IDbConnection connection = CurrentContext.OpenConnection(CurrentContext.CurrentTransaction);
           connection.Execute("INSERT INTO auth_Logins(Id, sessionId, UserId, LoginDate) values(@Id, @sessionId, @userId, @loginDate)", login, CurrentContext.CurrentTransaction);
-        });
+        }); 
       }
       else
       {
         login.Id = owner.Id;
-        return Task.FromResult(0);
       }
+      return login;
     }
 
     public virtual Task EndSessionLoginRecordsAsync(String sessionId)
