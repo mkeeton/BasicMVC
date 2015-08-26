@@ -72,17 +72,17 @@ namespace Authentication.BasicMVC.Controllers.API
       }
 
       // GET api/<controller>/5
-      public Authentication.BasicMVC.Domain.Models.AuthenticationResponse Get(Guid id)
+      public async Task<Authentication.BasicMVC.Domain.Models.AuthenticationResponse> Get(Guid id)
       {
         string strSource = Request.RequestUri.PathAndQuery;
         Authentication.BasicMVC.Domain.Models.AuthenticationResponse objReturn = new Authentication.BasicMVC.Domain.Models.AuthenticationResponse();
         objReturn.Id = Guid.NewGuid();
         objReturn.ResponseCode = Domain.Models.AuthenticationResponse.AuthenticationResponseCode.Unknown;
         objReturn.RedirectURL = Request.RequestUri.Scheme + "://" + Request.RequestUri.Authority + "/Account/ConfirmLogin/";
-        ClientSession _clientSession = HttpContext.Current.GetOwinContext().Get<UnitOfWork>().SessionManager.FindByClientAsync(id).Result;
+        ClientSession _clientSession = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().SessionManager.FindByClientAsync(id);
         if(_clientSession==null)
         {
-          Login _Login = HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenByClientIdAsync(id).Result;
+          Login _Login = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenByClientIdAsync(id);
           if(_Login!=null)
           {
             objReturn.ResponseCode = Domain.Models.AuthenticationResponse.AuthenticationResponseCode.LoggedIn;

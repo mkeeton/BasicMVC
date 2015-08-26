@@ -7,3 +7,4 @@ C:\Development\Applications\C\Git\BasicMVC\CMS.BasicMVC.Domain\bin\Debug\CMS.Bas
 C:\Development\Applications\C\Git\BasicMVC\CMS.BasicMVC.Domain\bin\Debug\CMS.BasicMVC.Domain.pdb
 C:\Development\Applications\C\Git\BasicMVC\CMS.BasicMVC.Domain\obj\Debug\CMS.BasicMVC.Domain.dll
 C:\Development\Applications\C\Git\BasicMVC\CMS.BasicMVC.Domain\obj\Debug\CMS.BasicMVC.Domain.pdb
+C:\Development\Applications\C\Git\BasicMVC\CMS.BasicMVC.Domain\obj\Debug\CMS.BasicMVC.Domain.csprojResolveAssemblyReference.cache

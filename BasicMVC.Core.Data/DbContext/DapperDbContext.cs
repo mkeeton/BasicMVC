@@ -64,19 +64,19 @@ namespace BasicMVC.Core.Data.DbContext
 
     public void BeginTransaction()
     {
-     // _transaction = OpenConnection().BeginTransaction();
+      _transaction = OpenConnection().BeginTransaction();
     }
 
     public void CommitTransaction()
     {
-     // _transaction.Commit();
-     // _transaction = null;
+      _transaction.Commit();
+      _transaction = null;
     }
 
     public void RollbackTransaction()
     {
-    //  _transaction.Rollback();
-    //  _transaction = null;
+      _transaction.Rollback();
+      _transaction = null;
     }
 
     public void Dispose()

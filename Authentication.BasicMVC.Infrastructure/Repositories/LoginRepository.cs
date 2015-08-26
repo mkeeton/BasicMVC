@@ -55,7 +55,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
       Login owner = null;
       if(login.Id==Guid.Empty)
       {
-        owner = this.FindOpenBySessionAsync(login.SessionId).Result;
+        owner = await this.FindOpenBySessionAsync(login.SessionId);
       }
       else
       {
@@ -63,9 +63,9 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
       }
       if ((owner == null))// || (owner.Result == null))
       {
+        login.Id = Guid.NewGuid();
         await Task.Factory.StartNew(() =>
         {
-          login.Id = Guid.NewGuid();
           IDbConnection connection = CurrentContext.OpenConnection(CurrentContext.CurrentTransaction);
           connection.Execute("INSERT INTO auth_Logins(Id, sessionId, UserId, LoginDate) values(@Id, @sessionId, @userId, @loginDate)", login, CurrentContext.CurrentTransaction);
         }); 
