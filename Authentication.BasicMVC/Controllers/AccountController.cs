@@ -596,7 +596,7 @@ namespace Authentication.BasicMVC.Controllers
         public ActionResult LogOff()
         {
             var currentUser = UserManager.FindById(new Guid(User.Identity.GetUserId()));
-            UserManager.RemoveLoginAsync(new Guid(User.Identity.GetUserId()), new UserLoginInfo("", ""));
+            //UserManager.RemoveLoginAsync(new Guid(User.Identity.GetUserId()), new UserLoginInfo("", ""));
             HttpContext.GetOwinContext().Get<UnitOfWork>().LoginManager.EndSessionLoginRecordsAsync(Session.SessionID);
             AuthenticationManager.SignOut();
             return RedirectToAction("Login", "Account");
