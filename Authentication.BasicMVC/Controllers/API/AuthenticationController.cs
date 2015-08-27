@@ -12,6 +12,7 @@ using Authentication.BasicMVC.Infrastructure;
 using Authentication.BasicMVC.Domain.Models;
 //using Authentication.BasicMVC.Infrastructure.Interfaces;
 using Authentication.BasicMVC.Infrastructure.Repositories;
+using Authentication.BasicMVC.Client.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -72,41 +73,50 @@ namespace Authentication.BasicMVC.Controllers.API
       }
 
       // GET api/<controller>/5
-      public async Task<Authentication.BasicMVC.Domain.Models.AuthenticationResponse> Get(Guid id)
+      public async Task<AuthenticationResponse> Get(Guid id)
       {
-        string strSource = Request.RequestUri.PathAndQuery;
-        Authentication.BasicMVC.Domain.Models.AuthenticationResponse objReturn = new Authentication.BasicMVC.Domain.Models.AuthenticationResponse();
+        AuthenticationResponse objReturn = new AuthenticationResponse();
         objReturn.Id = Guid.NewGuid();
-        objReturn.ResponseCode = Domain.Models.AuthenticationResponse.AuthenticationResponseCode.Unknown;
-        objReturn.RedirectURL = Request.RequestUri.Scheme + "://" + Request.RequestUri.Authority + "/Account/ConfirmLogin/";
-        ClientSession _clientSession = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().SessionManager.FindByClientAsync(id);
-        if(_clientSession==null)
-        {
-          Login _Login = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenByClientIdAsync(id);
-          if(_Login!=null)
+        try
+        { 
+          string strSource = Request.RequestUri.PathAndQuery; 
+          objReturn.ResponseCode = AuthenticationResponse.AuthenticationResponseCode.Unknown;
+          objReturn.RedirectURL = Request.RequestUri.Scheme + "://" + Request.RequestUri.Authority + "/Account/ConfirmLogin/";
+          ClientSession _clientSession = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().SessionManager.FindByClientAsync(id);
+          if(_clientSession==null)
           {
-            objReturn.ResponseCode = Domain.Models.AuthenticationResponse.AuthenticationResponseCode.LoggedIn;
-            objReturn.RedirectURL = "";
+            Login _Login = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenByClientIdAsync(id);
+            if(_Login!=null)
+            {
+              objReturn.UserId = _Login.UserId;
+              objReturn.ResponseCode = AuthenticationResponse.AuthenticationResponseCode.LoggedIn;
+              objReturn.RedirectURL = "";
+            }
+          }
+          else
+          { 
+            objReturn.ResponseCode = AuthenticationResponse.AuthenticationResponseCode.NotLoggedIn;
+            objReturn.RedirectURL = Request.RequestUri.Scheme + "://" + Request.RequestUri.Authority + "/Account/Login/";
           }
         }
-        else
-        { 
-          objReturn.ResponseCode = Domain.Models.AuthenticationResponse.AuthenticationResponseCode.NotLoggedIn;
-          objReturn.RedirectURL = Request.RequestUri.Scheme + "://" + Request.RequestUri.Authority + "/Account/Login/";
+        catch(Exception ex)
+        {
+          objReturn.ResponseCode = AuthenticationResponse.AuthenticationResponseCode.Error;
+          objReturn.RedirectURL = "";
         }        
         return objReturn;
       }
 
       // POST api/<controller>
-      public Authentication.BasicMVC.Domain.Models.AuthenticationResponse Post([FromBody]Authentication.BasicMVC.Domain.Models.AuthenticationResponse value)
+      public AuthenticationResponse Post([FromBody]AuthenticationResponse value)
       {
-        return new Authentication.BasicMVC.Domain.Models.AuthenticationResponse();
+        return new AuthenticationResponse();
       }
 
       // PUT api/<controller>/5
-      public Authentication.BasicMVC.Domain.Models.AuthenticationResponse Put(int id, [FromBody]Authentication.BasicMVC.Domain.Models.AuthenticationResponse value)
+      public AuthenticationResponse Put(int id, [FromBody]AuthenticationResponse value)
       {
-        return new Authentication.BasicMVC.Domain.Models.AuthenticationResponse();
+        return new AuthenticationResponse();
       }
 
       // DELETE api/<controller>/5

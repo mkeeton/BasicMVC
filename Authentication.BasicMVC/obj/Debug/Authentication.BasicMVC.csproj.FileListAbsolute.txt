@@ -75,8 +75,11 @@ C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentic
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentication.BasicMVC.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentication.BasicMVC.pdb
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Antlr3.Runtime.dll
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentication.BasicMVC.Client.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentication.BasicMVC.Domain.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentication.BasicMVC.Infrastructure.dll
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\BasicMVC.Core.Data.dll
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\BasicMVC.Core.Domain.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\EntityFramework.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\EntityFramework.SqlServer.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Microsoft.AspNet.Identity.Core.dll
@@ -111,6 +114,8 @@ C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\WebGrease
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Dapper.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentication.BasicMVC.Domain.pdb
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentication.BasicMVC.Infrastructure.pdb
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\BasicMVC.Core.Data.pdb
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\BasicMVC.Core.Domain.pdb
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Microsoft.Owin.xml
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Microsoft.Owin.Cors.xml
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Newtonsoft.Json.xml
@@ -144,7 +149,4 @@ C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Dapper.xm
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\obj\Debug\Authentication.BasicMVC.csprojResolveAssemblyReference.cache
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\obj\Debug\Authentication.BasicMVC.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\obj\Debug\Authentication.BasicMVC.pdb
-C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\BasicMVC.Core.Domain.dll
-C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\BasicMVC.Core.Domain.pdb
-C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\BasicMVC.Core.Data.dll
-C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\BasicMVC.Core.Data.pdb
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentication.BasicMVC.Client.pdb

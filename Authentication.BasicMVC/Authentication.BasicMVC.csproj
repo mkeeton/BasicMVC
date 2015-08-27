@@ -262,6 +262,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Authentication.BasicMVC.Client\Authentication.BasicMVC.Client.csproj">
+      <Project>{f6281477-3d98-4815-a255-1cb97878e998}</Project>
+      <Name>Authentication.BasicMVC.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Authentication.BasicMVC.Domain\Authentication.BasicMVC.Domain.csproj">
       <Project>{2442a503-9f17-4268-9bb0-503117460e47}</Project>
       <Name>Authentication.BasicMVC.Domain</Name>
