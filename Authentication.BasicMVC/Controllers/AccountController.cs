@@ -492,7 +492,14 @@ namespace Authentication.BasicMVC.Controllers
             if (user != null)
             {
                 await SignInAsync(user, isPersistent: true);
-                return RedirectToLocal(returnUrl);
+                if(returnUrl==null || returnUrl=="")
+                {
+                  return RedirectToLocal(returnUrl);
+                }
+                else
+                { 
+                  return Redirect(returnUrl);
+                }
             }
             else
             {

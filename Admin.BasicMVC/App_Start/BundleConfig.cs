@@ -19,13 +19,16 @@ namespace Admin.BasicMVC
       bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                   "~/Scripts/modernizr-*"));
 
-      bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                "~/Scripts/bootstrap.js",
-                "~/Scripts/respond.js"));
+      bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
+                "~/Scripts/respond.js",
+                "~/Scripts/ui.js"));
 
       bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/bootstrap.css",
-                "~/Content/site.css"));
+                "~/Content/Pure/pure-min.css",
+                "~/Content/Layout.css",
+                "~/Content/Fomatting.css",
+                "~/Content/side-menu.css",
+                "~/Content/top-menu.css"));
 
       // Set EnableOptimizations to false for debugging. For more information,
       // visit http://go.microsoft.com/fwlink/?LinkId=301862

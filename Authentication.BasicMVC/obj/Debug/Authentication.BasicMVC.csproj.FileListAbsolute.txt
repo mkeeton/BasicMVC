@@ -80,8 +80,6 @@ C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentic
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentication.BasicMVC.Infrastructure.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\BasicMVC.Core.Data.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\BasicMVC.Core.Domain.dll
-C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\EntityFramework.dll
-C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\EntityFramework.SqlServer.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Microsoft.AspNet.Identity.Core.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Microsoft.AspNet.Identity.Owin.dll
@@ -131,8 +129,6 @@ C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\System.We
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\System.Web.WebPages.Deployment.xml
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\System.Web.WebPages.Razor.xml
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Antlr3.Runtime.pdb
-C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\EntityFramework.xml
-C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\EntityFramework.SqlServer.xml
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Microsoft.AspNet.Identity.Core.xml
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Microsoft.AspNet.Identity.Owin.xml
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Microsoft.AspNet.Identity.EntityFramework.xml
