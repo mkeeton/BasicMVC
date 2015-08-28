@@ -7,7 +7,7 @@ using Authentication.BasicMVC.Client.Attributes;
 
 namespace Admin.BasicMVC.Controllers
 {
-  public class HomeController : Controller
+  public class HomeController : BaseController
   {
     public ActionResult Index()
     {

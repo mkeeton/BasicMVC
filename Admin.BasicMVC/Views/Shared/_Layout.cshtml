@@ -13,7 +13,7 @@
       <a class="pure-menu-heading" href="">Welcome Jimbo</a>
 
       <ul class="pure-menu-list">
-        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Out</a></li>
+        <li class="pure-menu-item">@Html.ActionLink("Sign Out", "LogOut","Home",null, new { @class = "pure-menu-link" })</li>
       </ul>
     </div>
   </div>
@@ -28,9 +28,9 @@
         <a class="pure-menu-heading" href="#">Company</a>
 
         <ul class="pure-menu-list">
-          <li class="pure-menu-item">@Html.ActionLink("Home", "Index", "Home", new {@class = "pure-menu-link" })</li>
-          <li class="pure-menu-item">@Html.ActionLink("About", "About", "Home", new {@class = "pure-menu-link" })</li>
-          <li class="pure-menu-item">@Html.ActionLink("Contact", "Contact", "Home", new { @class = "pure-menu-link" })</li>
+          <li class="pure-menu-item">@Html.ActionLink("Home", "Index", "Home",null, new {@class = "pure-menu-link" })</li>
+          <li class="pure-menu-item">@Html.ActionLink("About", "About", "Home",null, new {@class = "pure-menu-link" })</li>
+          <li class="pure-menu-item">@Html.ActionLink("Contact", "Contact", "Home",null, new { @class = "pure-menu-link" })</li>
         </ul>
         <a class="pure-menu-heading" href="#">Block 2</a>
       </div>
