@@ -596,13 +596,9 @@ namespace Authentication.BasicMVC.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+        public ActionResult LogOut(string returnURL)
         {
-            return LogOff("");
+          return LogOff(returnURL);
         }
 
         [HttpPost]

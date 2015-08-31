@@ -119,4 +119,3 @@ C:\Development\Applications\C\Git\BasicMVC\BasicMVC\bin\Microsoft.Owin.Security.
 C:\Development\Applications\C\Git\BasicMVC\BasicMVC\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Development\Applications\C\Git\BasicMVC\BasicMVC\obj\Debug\BasicMVC.dll
 C:\Development\Applications\C\Git\BasicMVC\BasicMVC\obj\Debug\BasicMVC.pdb
-C:\Development\Applications\C\Git\BasicMVC\BasicMVC\obj\Debug\BasicMVC.csprojResolveAssemblyReference.cache

@@ -7,7 +7,6 @@ using System.Data;
 using Dapper;
 using Authentication.BasicMVC.Domain.Models;
 using Authentication.BasicMVC.Domain.Repositories;
-//using Authentication.BasicMVC.Infrastructure.Interfaces;
 using BasicMVC.Core.Data.Interfaces;
 
 namespace Authentication.BasicMVC.Infrastructure.Repositories

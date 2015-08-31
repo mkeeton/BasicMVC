@@ -16,6 +16,7 @@ namespace Authentication.BasicMVC.Infrastructure
     private IDbContext _dbContext;
     private SessionRepository _sessionRepository;
     private LoginRepository _loginRepository;
+    private LoginPropertyRepository _loginPropertyRepository;
     private UserStore<User> _userRepository;
 
     public static UnitOfWork Create()
@@ -100,6 +101,22 @@ namespace Authentication.BasicMVC.Infrastructure
       private set
       {
         _loginRepository = value;
+      }
+    }
+
+    public LoginPropertyRepository LoginPropertyManager
+    {
+      get
+      {
+        if (_loginPropertyRepository == null)
+        {
+          _loginPropertyRepository = new LoginPropertyRepository(_dbContext);
+        }
+        return _loginPropertyRepository;
+      }
+      private set
+      {
+        _loginPropertyRepository = value;
       }
     }
 
