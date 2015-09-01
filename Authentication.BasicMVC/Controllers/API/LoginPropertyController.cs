@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Http;
+using System.Web.Http.Description;
 using System.Net;
 using System.Net.Http;
 using Authentication.BasicMVC.Domain;
@@ -23,7 +24,7 @@ using BasicMVC.Core.Data.Interfaces;
 namespace Authentication.BasicMVC.Controllers.API
 {
     [RequireHttps]
-    [EnableCorsAttribute("http://localhost:50785/", "*", "*", SupportsCredentials = true)]
+    [EnableCorsAttribute("*", "*", "*")]
     public class LoginPropertyController : ApiController
     {
 
@@ -49,12 +50,20 @@ namespace Authentication.BasicMVC.Controllers.API
           }
       }
 
-      public async Task<HttpResponseMessage> Get(string propertyName, string defaultValue)
+      // GET api/<controller>
+      public IEnumerable<string> Get()
+      {
+        return new string[] { "value1", "value2" };
+      }
+
+      // GET api/<controller>/5
+      [System.Web.Http.Route("API/LoginProperty/{clientId}/{propertyName}/{defaultValue}")]
+      public async Task<HttpResponseMessage> Get(Guid clientId, string propertyName, string defaultValue)
       {
         HttpResponseMessage _return = null;
         try
         {
-          Login _login = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenBySessionAsync("");
+          Login _login = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenByClientIdAsync(clientId);
           if(_login!=null)
           {
             LoginProperty _prop = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginPropertyManager.FindByNameAsync(_login.Id,propertyName);
@@ -65,7 +74,7 @@ namespace Authentication.BasicMVC.Controllers.API
           }
           else
           {
-            _return = Request.CreateResponse<string>(HttpStatusCode.InternalServerError, defaultValue);
+            _return = Request.CreateResponse<string>(HttpStatusCode.Unauthorized, defaultValue);
           }
         }
         catch (Exception ex)
@@ -79,9 +88,35 @@ namespace Authentication.BasicMVC.Controllers.API
         return _return;
       }
 
-      public bool Post(string propertyName, string propertyValue)
+      public async Task<HttpResponseMessage> Post(Guid clientId, string propertyName, string propertyValue)
       {
-        return true;
+        HttpResponseMessage _return = null;
+        try
+        {
+          Login _login = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenByClientIdAsync(clientId);
+          if(_login!=null)
+          {
+            LoginProperty _loginProperty = new LoginProperty();
+            _loginProperty.LoginId = _login.Id;
+            _loginProperty.PropertyName = propertyName;
+            _loginProperty.PropertyValue = propertyValue;
+            await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginPropertyManager.UpdateAsync(_loginProperty);
+            _return = Request.CreateResponse<bool>(HttpStatusCode.OK, true);
+          }
+          else
+          {
+            _return = Request.CreateResponse<bool>(HttpStatusCode.Unauthorized, false);
+          }
+        }
+        catch(Exception ex)
+        {
+          _return = Request.CreateResponse<bool>(HttpStatusCode.InternalServerError, false);
+        }
+        if (_return == null)
+        {
+          _return = Request.CreateResponse<bool>(HttpStatusCode.InternalServerError, false);
+        }
+        return _return;
       }
 
     }
