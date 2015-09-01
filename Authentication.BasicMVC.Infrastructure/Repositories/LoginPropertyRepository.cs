@@ -81,7 +81,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
         await Task.Factory.StartNew(() =>
         {
           IDbConnection connection = CurrentContext.OpenConnection(CurrentContext.CurrentTransaction);
-          connection.Execute("Update auth_LoginProperties SET PropertyName=@PropertyName, PropertyValue=@PropertyValue WHERE IdPropertyId", new { PropertyName=loginProperty.PropertyName, PropertyValue=loginProperty.PropertyValue, PropertyId=_prop.Id }, CurrentContext.CurrentTransaction);
+          connection.Execute("Update auth_LoginProperties SET PropertyName=@PropertyName, PropertyValue=@PropertyValue WHERE Id=PropertyId", new { PropertyName=loginProperty.PropertyName, PropertyValue=loginProperty.PropertyValue, PropertyId=_prop.Id }, CurrentContext.CurrentTransaction);
         });
       }
       return loginProperty;

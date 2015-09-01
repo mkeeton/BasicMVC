@@ -13,7 +13,7 @@ using Authentication.BasicMVC.Infrastructure;
 using Authentication.BasicMVC.Domain.Models;
 //using Authentication.BasicMVC.Infrastructure.Interfaces;
 using Authentication.BasicMVC.Infrastructure.Repositories;
-using Authentication.BasicMVC.Client.Models;
+using Authentication.BasicMVC.Client.Domain.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -88,18 +88,20 @@ namespace Authentication.BasicMVC.Controllers.API
         return _return;
       }
 
-      public async Task<HttpResponseMessage> Post(Guid clientId, string propertyName, string propertyValue)
+      [System.Web.Http.Route("API/LoginProperty")]
+      [System.Web.Http.HttpPost]
+      public async Task<HttpResponseMessage> Post([FromBody] LoginPropertyModel _property)
       {
         HttpResponseMessage _return = null;
         try
         {
-          Login _login = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenByClientIdAsync(clientId);
+          Login _login = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenByClientIdAsync(_property.SessionToken);
           if(_login!=null)
           {
             LoginProperty _loginProperty = new LoginProperty();
             _loginProperty.LoginId = _login.Id;
-            _loginProperty.PropertyName = propertyName;
-            _loginProperty.PropertyValue = propertyValue;
+            _loginProperty.PropertyName = _property.PropertyName;
+            _loginProperty.PropertyValue = _property.PropertyValue;
             await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginPropertyManager.UpdateAsync(_loginProperty);
             _return = Request.CreateResponse<bool>(HttpStatusCode.OK, true);
           }

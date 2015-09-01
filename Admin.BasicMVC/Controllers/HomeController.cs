@@ -5,14 +5,17 @@ using System.Web;
 using System.Web.Mvc;
 using Authentication.BasicMVC.Client;
 using Authentication.BasicMVC.Client.Attributes;
+using System.Threading.Tasks;
+
 
 namespace Admin.BasicMVC.Controllers
 {
   public class HomeController : BaseController
   {
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
-      string _CentreId = LoginProperties.GetLoginPropertyValue("CentreId", "Unknown");
+      bool _set = await LoginProperties.SetLoginPropertyValue("CentreId", "Suck My Ass");
+      string _CentreId = await LoginProperties.GetLoginPropertyValue("CentreId", "Unknown");
       return View();
     }
 

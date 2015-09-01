@@ -75,7 +75,6 @@ C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentic
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentication.BasicMVC.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentication.BasicMVC.pdb
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Antlr3.Runtime.dll
-C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentication.BasicMVC.Client.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentication.BasicMVC.Domain.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentication.BasicMVC.Infrastructure.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\BasicMVC.Core.Data.dll
@@ -145,4 +144,5 @@ C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Dapper.xm
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\obj\Debug\Authentication.BasicMVC.csprojResolveAssemblyReference.cache
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\obj\Debug\Authentication.BasicMVC.dll
 C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\obj\Debug\Authentication.BasicMVC.pdb
-C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentication.BasicMVC.Client.pdb
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentication.BasicMVC.Client.Domain.dll
+C:\Development\Applications\C\Git\BasicMVC\Authentication.BasicMVC\bin\Authentication.BasicMVC.Client.Domain.pdb

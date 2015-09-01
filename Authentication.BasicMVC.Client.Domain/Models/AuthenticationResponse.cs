@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Authentication.BasicMVC.Client.Models
+namespace Authentication.BasicMVC.Client.Domain.Models
 {
   public class AuthenticationResponse
   {

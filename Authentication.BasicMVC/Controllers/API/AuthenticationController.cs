@@ -12,7 +12,7 @@ using Authentication.BasicMVC.Infrastructure;
 using Authentication.BasicMVC.Domain.Models;
 //using Authentication.BasicMVC.Infrastructure.Interfaces;
 using Authentication.BasicMVC.Infrastructure.Repositories;
-using Authentication.BasicMVC.Client.Models;
+using Authentication.BasicMVC.Client.Domain.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
