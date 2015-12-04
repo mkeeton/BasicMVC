@@ -14,14 +14,14 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
   public class LoginRepository : ILoginRepository
   {
 
-    private readonly IDbContext CurrentContext;
+    private readonly LoginList logins;
 
-    public LoginRepository(IDbContext context)
+    public LoginRepository(LoginList currentLogins)
     {
-      if (context==null)
+      if (currentLogins==null)
         throw new ArgumentNullException("connectionString");
 
-      this.CurrentContext = context;
+      this.logins = currentLogins;
     }
 
     //public LoginRepository()
@@ -65,8 +65,9 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
         login.Id = Guid.NewGuid();
         await Task.Factory.StartNew(() =>
         {
-          IDbConnection connection = CurrentContext.OpenConnection(CurrentContext.CurrentTransaction);
-          connection.Execute("INSERT INTO auth_Logins(Id, sessionId, UserId, LoginDate) values(@Id, @sessionId, @userId, @loginDate)", login, CurrentContext.CurrentTransaction);
+          logins.Logins.Add(new Login(){Id=login.Id, SessionId=login.SessionId, UserId=login.UserId, LoginDate=login.LoginDate});
+          //IDbConnection connection = CurrentContext.OpenConnection(CurrentContext.CurrentTransaction);
+          //connection.Execute("INSERT INTO auth_Logins(Id, sessionId, UserId, LoginDate) values(@Id, @sessionId, @userId, @loginDate)", login, CurrentContext.CurrentTransaction);
         }); 
       }
       else
@@ -83,9 +84,14 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        IDbConnection connection = CurrentContext.OpenConnection(CurrentContext.CurrentTransaction);
-          connection.Execute("UPDATE auth_Logins SET LogoutDate=@LogoutDate WHERE (SessionID=@sessionId OR SessionID IS NULL) AND LogoutDate IS NULL",
-              new { LogoutDate = DateTime.Now, sessionId = sessionId }, CurrentContext.CurrentTransaction);
+        List<Login> updateLogins = logins.Logins.Where(x => x.SessionId==sessionId && x.LogoutDate==null).ToList<Login>();
+        foreach(Login currentLogin in updateLogins)
+        {
+          currentLogin.LogoutDate = DateTime.Now;
+        }
+        //IDbConnection connection = CurrentContext.OpenConnection(CurrentContext.CurrentTransaction);
+        //  connection.Execute("UPDATE auth_Logins SET LogoutDate=@LogoutDate WHERE (SessionID=@sessionId OR SessionID IS NULL) AND LogoutDate IS NULL",
+        //      new { LogoutDate = DateTime.Now, sessionId = sessionId }, CurrentContext.CurrentTransaction);
       });
     }
     public virtual Task LogoutAsync(Login login)
@@ -95,8 +101,13 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        IDbConnection connection = CurrentContext.OpenConnection(CurrentContext.CurrentTransaction);
-        connection.Execute("Update auth_Logins SET LogoutDate = GETDATE() where Id = @loginId", new { loginId = login.Id }, CurrentContext.CurrentTransaction);
+        List<Login> updateLogins = logins.Logins.Where(x => x.Id==login.Id).ToList<Login>();
+        foreach (Login currentLogin in updateLogins)
+        {
+          login.LogoutDate = DateTime.Now;
+        }
+        //IDbConnection connection = CurrentContext.OpenConnection(CurrentContext.CurrentTransaction);
+        //connection.Execute("Update auth_Logins SET LogoutDate = GETDATE() where Id = @loginId", new { loginId = login.Id }, CurrentContext.CurrentTransaction);
       });
     }
 
@@ -107,8 +118,9 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using(IDbConnection connection = CurrentContext.OpenConnection())
-          return connection.Query<Login>("select L.* from auth_Logins L where L.ID = @Id AND L.LogoutDate IS NULL", new { Id = Id }).SingleOrDefault();
+        return logins.Logins.Where(x => x.Id == Id).SingleOrDefault<Login>();
+        //using(IDbConnection connection = CurrentContext.OpenConnection())
+        //  return connection.Query<Login>("select L.* from auth_Logins L where L.ID = @Id AND L.LogoutDate IS NULL", new { Id = Id }).SingleOrDefault();
       });
     }
 
@@ -119,6 +131,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
+        return logins.Logins.Where(x => x.Id == Id).SingleOrDefault<Login>();
         using(IDbConnection connection = CurrentContext.OpenConnection())
           return connection.Query<Login>("select DISTINCT L.* from auth_ClientSessions CS INNER JOIN auth_Logins L ON CS.LoginID=L.ID where CS.ClientSessionID = @ClientSessionId AND L.LogoutDate IS NULL", new { ClientSessionId = clientSessionID }).SingleOrDefault();
       });
@@ -131,8 +144,9 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        using(IDbConnection connection = CurrentContext.OpenConnection())
-          return connection.Query<Login>("select L.* from auth_Logins L where L.SessionID = @LocalSessionId AND L.LogoutDate IS NULL", new { LocalSessionId = localSessionID }).SingleOrDefault();
+        return logins.Logins.Where(x => x.SessionId==localSessionID && x.LogoutDate==null).SingleOrDefault<Login>();
+        //using(IDbConnection connection = CurrentContext.OpenConnection())
+        //  return connection.Query<Login>("select L.* from auth_Logins L where L.SessionID = @LocalSessionId AND L.LogoutDate IS NULL", new { LocalSessionId = localSessionID }).SingleOrDefault();
       });
     }
   }

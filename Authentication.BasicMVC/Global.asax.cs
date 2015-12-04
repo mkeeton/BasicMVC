@@ -54,8 +54,8 @@ namespace Authentication.BasicMVC
         protected void Session_End(object sender, EventArgs e)
         {
           
-          var manager = new LoginRepository(HttpContext.Current.GetOwinContext().Get<IDbContext>());
-          manager.EndSessionLoginRecordsAsync(Session.SessionID);
+          //var manager = new LoginRepository(HttpContext.Current.GetOwinContext().Get<IDbContext>());
+          //manager.EndSessionLoginRecordsAsync(Session.SessionID);
           var currentLogin = currentLogins.Logins.Where(x => x.SessionId==Session.SessionID && x.LogoutDate==null ).FirstOrDefault();
           if(currentLogin!=null)
           {
