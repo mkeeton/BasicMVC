@@ -28,27 +28,15 @@ namespace Authentication.BasicMVC.Controllers.API
     public class LoginPropertyController : ApiController
     {
 
-      private ApplicationUserManager _userManager;
-
-      public LoginPropertyController()
-      {
-      }
-
-      public LoginPropertyController(ApplicationUserManager userManager)
+      public LoginPropertyController(ApplicationUserManager userManager, UnitOfWork unitOfWork)
       {
           UserManager = userManager;
+          WorkManager = unitOfWork;
       }
 
-      public ApplicationUserManager UserManager {
-          get
-          {
-              return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-          }
-          private set
-          {
-              _userManager = value;
-          }
-      }
+      public ApplicationUserManager UserManager {get;set;}
+
+      public UnitOfWork WorkManager { get;set;}
 
       // GET api/<controller>
       public IEnumerable<string> Get()
@@ -63,10 +51,10 @@ namespace Authentication.BasicMVC.Controllers.API
         HttpResponseMessage _return = null;
         try
         {
-          Login _login = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenByClientIdAsync(clientId);
+          Login _login = await WorkManager.LoginManager.FindOpenByClientIdAsync(clientId);
           if(_login!=null)
           {
-            LoginProperty _prop = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginManager.FindPropertyByNameAsync(_login,propertyName);
+            LoginProperty _prop = await WorkManager.LoginManager.FindPropertyByNameAsync(_login, propertyName);
             if(_prop!=null)
             {
               _return = Request.CreateResponse<string>(HttpStatusCode.OK, _prop.PropertyValue);
@@ -95,14 +83,14 @@ namespace Authentication.BasicMVC.Controllers.API
         HttpResponseMessage _return = null;
         try
         {
-          Login _login = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenByClientIdAsync(_property.SessionToken);
+          Login _login = await WorkManager.LoginManager.FindOpenByClientIdAsync(_property.SessionToken);
           if(_login!=null)
           {
             LoginProperty _loginProperty = new LoginProperty();
             _loginProperty.LoginId = _login.Id;
             _loginProperty.PropertyName = _property.PropertyName;
             _loginProperty.PropertyValue = _property.PropertyValue;
-            await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginManager.UpdatePropertyAsync(_login,_loginProperty);
+            await WorkManager.LoginManager.UpdatePropertyAsync(_login, _loginProperty);
             _return = Request.CreateResponse<bool>(HttpStatusCode.OK, true);
           }
           else

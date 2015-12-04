@@ -13,28 +13,13 @@ namespace Authentication.BasicMVC.Infrastructure
 {
   public class UnitOfWork : IDisposable
   {
-    private IDbContext _dbContext;
-    private SessionRepository _sessionRepository;
-    private LoginRepository _loginRepository;
-    private LoginPropertyRepository _loginPropertyRepository;
-    private UserStore<User> _userRepository;
 
     public static UnitOfWork Create(IDbContext context, LoginList currentLogins)
     {
       return new UnitOfWork(context,currentLogins);
     }
 
-    public IDbContext DbContext
-    {
-      get
-      {
-        return _dbContext;
-      }
-      set
-      {
-        _dbContext = value;
-      }
-    }
+    public IDbContext DbContext{ get;set;}
 
     public LoginList CurrentLogins { get;set;}
 
@@ -43,7 +28,7 @@ namespace Authentication.BasicMVC.Infrastructure
       if (context==null)
         throw new ArgumentNullException("connectionString");
 
-      this._dbContext = context;
+      this.DbContext = context;
       CurrentLogins = currentLogins;
     }
 
@@ -54,48 +39,28 @@ namespace Authentication.BasicMVC.Infrastructure
 
     public void BeginWork()
     {
-      _dbContext.BeginTransaction();
+      DbContext.BeginTransaction();
     }
 
     public void CommitWork()
     {
-      _dbContext.CommitTransaction();
+      DbContext.CommitTransaction();
     }
 
     public void RollbackWork()
     {
-      _dbContext.RollbackTransaction();
+      DbContext.RollbackTransaction();
     }
     public SessionRepository SessionManager
     {
-      get
-      {
-        if (_sessionRepository == null)
-        {
-          _sessionRepository = new SessionRepository(_dbContext);
-        }
-        return _sessionRepository;
-      }
-      private set
-      {
-        _sessionRepository = value;
-      }
+      get;
+      set;
     }
 
     public LoginRepository LoginManager
     {
-      get
-      {
-        if (_loginRepository == null)
-        {
-          _loginRepository = new LoginRepository(CurrentLogins);
-        }
-        return _loginRepository;
-      }
-      private set
-      {
-        _loginRepository = value;
-      }
+      get;
+      set;
     }
 
     //public LoginPropertyRepository LoginPropertyManager
@@ -116,18 +81,8 @@ namespace Authentication.BasicMVC.Infrastructure
 
     public UserStore<User> UserManager
     {
-      get
-      {
-        if (_userRepository == null)
-        {
-          _userRepository = new UserStore<User>(_dbContext);
-        }
-        return _userRepository;
-      }
-      private set
-      {
-        _userRepository = value;
-      }
+      get;
+      set;
     }
 
   }

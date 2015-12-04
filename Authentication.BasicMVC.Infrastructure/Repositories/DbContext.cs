@@ -14,9 +14,9 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
   public class DbContext
   {
 
-    public static IDbContext Create()
+    public static IDbContext Create(string connectionString)
     {
-      return new DapperDbContext();
+      return new DapperDbContext(connectionString);
     }
   }
 }

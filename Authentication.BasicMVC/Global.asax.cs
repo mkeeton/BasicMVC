@@ -14,12 +14,14 @@ using Authentication.BasicMVC.Domain.Models;
 using Authentication.BasicMVC.Infrastructure;
 using Authentication.BasicMVC.Infrastructure.Repositories;
 using BasicMVC.Core.Data.Interfaces;
+using Castle.Windsor;
+using Castle.Windsor.Installer;
 
 namespace Authentication.BasicMVC
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        private static LoginList currentLogins;
+        private static IWindsorContainer container;
 
         protected void Application_Start()
         {
@@ -28,7 +30,20 @@ namespace Authentication.BasicMVC
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            currentLogins = new LoginList(360);
+            BootstrapContainer();
+        }
+
+        private static void BootstrapContainer()
+        {
+          container = new WindsorContainer()
+              .Install(FromAssembly.This());
+          var controllerFactory = new Factories.WindsorControllerFactory(container.Kernel);
+          ControllerBuilder.Current.SetControllerFactory(controllerFactory);
+        }
+
+        public static IWindsorContainer GetContainer()
+        {
+          return container;
         }
 
         protected void Application_BeginRequest()
@@ -43,7 +58,7 @@ namespace Authentication.BasicMVC
 
         protected void Application_End()
         {
-          currentLogins.Dispose();
+          container.Dispose();
         }
 
         protected void Session_Start(Object sender, EventArgs e)
@@ -56,16 +71,13 @@ namespace Authentication.BasicMVC
           
           //var manager = new LoginRepository(HttpContext.Current.GetOwinContext().Get<IDbContext>());
           //manager.EndSessionLoginRecordsAsync(Session.SessionID);
-          var currentLogin = currentLogins.Logins.Where(x => x.SessionId==Session.SessionID && x.LogoutDate==null ).FirstOrDefault();
-          if(currentLogin!=null)
+          LoginList currentLogins = container.Kernel.Resolve<LoginList>();
+          var currentLogin = currentLogins.Logins.Where(x => x.SessionId == Session.SessionID && x.LogoutDate == null).FirstOrDefault();
+          if (currentLogin != null)
           {
             currentLogins.Logins.Remove(currentLogin);
           }
         }
 
-        public static LoginList GetCurrentLogins()
-        {
-          return currentLogins;
-        }
     }
 }

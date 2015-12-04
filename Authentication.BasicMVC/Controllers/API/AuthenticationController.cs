@@ -27,44 +27,15 @@ namespace Authentication.BasicMVC.Controllers.API
     public class AuthenticationController : ApiController
     {
 
-        private ApplicationUserManager _userManager;
-        //private UnitOfWork _unitOfWork;
-
-        public AuthenticationController()
-        {
-        }
-
-        public AuthenticationController(ApplicationUserManager userManager)
+        public AuthenticationController(ApplicationUserManager userManager, UnitOfWork unitOfWork)
         {
             UserManager = userManager;
+            WorkManager = unitOfWork;
         }
 
-        //public UnitOfWork WorkManager
-        //{
-        //  get
-        //  {
-        //    if (_unitOfWork == null)
-        //    {
-        //      _unitOfWork = new UnitOfWork(HttpContext.Current.GetOwinContext().Get<IDbContext>());
-        //    }
-        //    return _unitOfWork;
-        //  }
-        //  set
-        //  {
-        //    _unitOfWork = value;
-        //  }
-        //}
+        public UnitOfWork WorkManager{get;set;}
 
-        public ApplicationUserManager UserManager {
-            get
-            {
-                return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
+        public ApplicationUserManager UserManager {get;set;}
 
       // GET api/<controller>
       public IEnumerable<string> Get()
@@ -82,10 +53,10 @@ namespace Authentication.BasicMVC.Controllers.API
           string strSource = Request.RequestUri.PathAndQuery; 
           objReturn.ResponseCode = AuthenticationResponse.AuthenticationResponseCode.Unknown;
           objReturn.RedirectURL = Request.RequestUri.Scheme + "://" + Request.RequestUri.Authority + "/Account/ConfirmLogin/";
-          ClientSession _clientSession = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().SessionManager.FindByClientAsync(id);
+          ClientSession _clientSession = await WorkManager.SessionManager.FindByClientAsync(id);
           if(_clientSession==null)
           {
-            Login _Login = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenByClientIdAsync(id);
+            Login _Login = await WorkManager.LoginManager.FindOpenByClientIdAsync(id);
             if(_Login!=null)
             {
               objReturn.UserId = _Login.UserId;

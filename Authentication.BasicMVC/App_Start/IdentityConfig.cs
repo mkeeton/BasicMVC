@@ -33,7 +33,8 @@ namespace Authentication.BasicMVC
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
-            var manager = new ApplicationUserManager(context.Get<UnitOfWork>().UserManager);
+          var repository = MvcApplication.GetContainer().Kernel.Resolve<UserStore<BasicMVC.Domain.Models.User>>();
+            var manager = new ApplicationUserManager(repository);
             // Configure validation logic for usernames
             Controllers.UserValidator UserVal  = new Controllers.UserValidator(manager);
             UserVal.AllowOnlyAlphanumericUserNames = false;

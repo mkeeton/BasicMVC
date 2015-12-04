@@ -26,11 +26,6 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
       this.CurrentContext = context;
     }
 
-    public UserStore()
-    {
-      this.CurrentContext = DbContext.Create();
-    }
-
     public void Dispose()
     {
 

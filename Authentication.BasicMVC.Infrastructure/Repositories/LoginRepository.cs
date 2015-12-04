@@ -24,11 +24,6 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
       this.logins = currentLogins;
     }
 
-    //public LoginRepository()
-    //{
-    //  this.CurrentContext = DbContext.Create();
-    //}
-
     public void Dispose()
     {
 
