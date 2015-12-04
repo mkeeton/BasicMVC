@@ -70,6 +70,7 @@
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Models\ClientSession.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\LoginList.cs" />
     <Compile Include="Models\LoginProperty.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

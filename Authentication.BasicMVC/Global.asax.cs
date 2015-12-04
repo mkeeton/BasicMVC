@@ -19,6 +19,8 @@ namespace Authentication.BasicMVC
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        private static LoginList currentLogins;
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -26,6 +28,7 @@ namespace Authentication.BasicMVC
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            currentLogins = new LoginList(360);
         }
 
         protected void Application_BeginRequest()
@@ -38,6 +41,11 @@ namespace Authentication.BasicMVC
           
         }
 
+        protected void Application_End()
+        {
+          currentLogins.Dispose();
+        }
+
         protected void Session_Start(Object sender, EventArgs e)
         {
           Session["init"] = 0;
@@ -48,6 +56,16 @@ namespace Authentication.BasicMVC
           
           var manager = new LoginRepository(HttpContext.Current.GetOwinContext().Get<IDbContext>());
           manager.EndSessionLoginRecordsAsync(Session.SessionID);
+          var currentLogin = currentLogins.Logins.Where(x => x.SessionId==Session.SessionID && x.LogoutDate==null ).FirstOrDefault();
+          if(currentLogin!=null)
+          {
+            currentLogins.Logins.Remove(currentLogin);
+          }
+        }
+
+        public static LoginList GetCurrentLogins()
+        {
+          return currentLogins;
         }
     }
 }
