@@ -23,23 +23,15 @@ namespace Authentication.BasicMVC.Controllers
     {
         private ApplicationUserManager _userManager;
 
-        public AccountController(UnitOfWork unitOfWork)
+        public AccountController(ApplicationUserManager userManager, UnitOfWork unitOfWork)
         {
+            _userManager = userManager;
             WorkManager = unitOfWork;
         }
 
         public UnitOfWork WorkManager{get;set;}
 
-        public ApplicationUserManager UserManager {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
+        public ApplicationUserManager UserManager { get;set;}
 
         //
         // GET: /Account/Login

@@ -28,13 +28,15 @@ namespace Authentication.BasicMVC.Controllers.API
     public class LoginPropertyController : ApiController
     {
 
-      public LoginPropertyController(ApplicationUserManager userManager, UnitOfWork unitOfWork)
+      public LoginPropertyController(ApplicationUserManager userManager,UnitOfWork unitOfWork)
       {
-          UserManager = userManager;
+        _userManager=userManager;
           WorkManager = unitOfWork;
       }
 
-      public ApplicationUserManager UserManager {get;set;}
+      private ApplicationUserManager _userManager;
+
+      public ApplicationUserManager UserManager { get;set;}
 
       public UnitOfWork WorkManager { get;set;}
 

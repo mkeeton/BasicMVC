@@ -7,6 +7,9 @@ using System.Web.Configuration;
 using Authentication.BasicMVC.Infrastructure;
 using Authentication.BasicMVC.Infrastructure.Repositories;
 using BasicMVC.Core.Data.Interfaces;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+
 
 namespace Authentication.BasicMVC.Installers
 {
@@ -50,6 +53,11 @@ namespace Authentication.BasicMVC.Installers
                 Component.For<UnitOfWork>()
                 .ImplementedBy<UnitOfWork>()
                 .LifeStyle.PerWebRequest
+      );
+
+      container.Register(
+          Component.For<ApplicationUserManager>()
+              .UsingFactoryMethod(_ => HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()).LifestylePerWebRequest()
       );
 
     }
