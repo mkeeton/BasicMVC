@@ -19,9 +19,9 @@ namespace Authentication.BasicMVC.Infrastructure
     private LoginPropertyRepository _loginPropertyRepository;
     private UserStore<User> _userRepository;
 
-    public static UnitOfWork Create()
+    public static UnitOfWork Create(IDbContext context, LoginList currentLogins)
     {
-      return new UnitOfWork();
+      return new UnitOfWork(context,currentLogins);
     }
 
     public IDbContext DbContext
@@ -36,22 +36,16 @@ namespace Authentication.BasicMVC.Infrastructure
       }
     }
 
-    public UnitOfWork()
-    {
-    }
+    public LoginList CurrentLogins { get;set;}
 
-    public UnitOfWork(IDbContext context)
+    public UnitOfWork(IDbContext context, LoginList currentLogins)
     {
       if (context==null)
         throw new ArgumentNullException("connectionString");
 
       this._dbContext = context;
+      CurrentLogins = currentLogins;
     }
-
-    //public UnitOfWork()
-    //{
-    //  this._dbContext = DbContext.Create();
-    //}
 
     public void Dispose()
     {
@@ -94,7 +88,7 @@ namespace Authentication.BasicMVC.Infrastructure
       {
         if (_loginRepository == null)
         {
-          _loginRepository = new LoginRepository(_dbContext);
+          _loginRepository = new LoginRepository(CurrentLogins);
         }
         return _loginRepository;
       }
@@ -104,21 +98,21 @@ namespace Authentication.BasicMVC.Infrastructure
       }
     }
 
-    public LoginPropertyRepository LoginPropertyManager
-    {
-      get
-      {
-        if (_loginPropertyRepository == null)
-        {
-          _loginPropertyRepository = new LoginPropertyRepository(_dbContext);
-        }
-        return _loginPropertyRepository;
-      }
-      private set
-      {
-        _loginPropertyRepository = value;
-      }
-    }
+    //public LoginPropertyRepository LoginPropertyManager
+    //{
+    //  get
+    //  {
+    //    if (_loginPropertyRepository == null)
+    //    {
+    //      _loginPropertyRepository = new LoginPropertyRepository(_dbContext);
+    //    }
+    //    return _loginPropertyRepository;
+    //  }
+    //  private set
+    //  {
+    //    _loginPropertyRepository = value;
+    //  }
+    //}
 
     public UserStore<User> UserManager
     {

@@ -9,12 +9,14 @@ namespace Authentication.BasicMVC.Domain.Models
   public class LoginList : IDisposable
   {
 
+    public List<ClientSession> ClientSessions { get;set;}
     public List<Login> Logins { get;set;}
     public DateTime LastCleansed { get;set;}
     public int CleansePeriod { get;set;}
 
     public LoginList(int cleansePeriod)
     {
+      ClientSessions = new List<ClientSession>();
       Logins = new List<Login>();
       LastCleansed = System.DateTime.Now;
       CleansePeriod = cleansePeriod;
@@ -22,6 +24,7 @@ namespace Authentication.BasicMVC.Domain.Models
 
     public void Dispose()
     {
+      ClientSessions = null;
       Logins = null;
     }
   }

@@ -66,7 +66,7 @@ namespace Authentication.BasicMVC.Controllers.API
           Login _login = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginManager.FindOpenByClientIdAsync(clientId);
           if(_login!=null)
           {
-            LoginProperty _prop = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginPropertyManager.FindByNameAsync(_login.Id,propertyName);
+            LoginProperty _prop = await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginManager.FindPropertyByNameAsync(_login,propertyName);
             if(_prop!=null)
             {
               _return = Request.CreateResponse<string>(HttpStatusCode.OK, _prop.PropertyValue);
@@ -102,7 +102,7 @@ namespace Authentication.BasicMVC.Controllers.API
             _loginProperty.LoginId = _login.Id;
             _loginProperty.PropertyName = _property.PropertyName;
             _loginProperty.PropertyValue = _property.PropertyValue;
-            await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginPropertyManager.UpdateAsync(_loginProperty);
+            await HttpContext.Current.GetOwinContext().Get<UnitOfWork>().LoginManager.UpdatePropertyAsync(_login,_loginProperty);
             _return = Request.CreateResponse<bool>(HttpStatusCode.OK, true);
           }
           else

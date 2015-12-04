@@ -131,9 +131,9 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        return logins.Logins.Where(x => x.Id == Id).SingleOrDefault<Login>();
-        using(IDbConnection connection = CurrentContext.OpenConnection())
-          return connection.Query<Login>("select DISTINCT L.* from auth_ClientSessions CS INNER JOIN auth_Logins L ON CS.LoginID=L.ID where CS.ClientSessionID = @ClientSessionId AND L.LogoutDate IS NULL", new { ClientSessionId = clientSessionID }).SingleOrDefault();
+        return logins.Logins.Where(x => x.LogoutDate == null && logins.ClientSessions.Where(cs => cs.ClientSessionID == clientSessionID).Select(cs => cs.LoginID).Contains(x.Id)).FirstOrDefault<Login>();
+        //using(IDbConnection connection = CurrentContext.OpenConnection())
+        //  return connection.Query<Login>("select DISTINCT L.* from auth_ClientSessions CS INNER JOIN auth_Logins L ON CS.LoginID=L.ID where CS.ClientSessionID = @ClientSessionId AND L.LogoutDate IS NULL", new { ClientSessionId = clientSessionID }).SingleOrDefault();
       });
     }
 
@@ -148,6 +148,50 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
         //using(IDbConnection connection = CurrentContext.OpenConnection())
         //  return connection.Query<Login>("select L.* from auth_Logins L where L.SessionID = @LocalSessionId AND L.LogoutDate IS NULL", new { LocalSessionId = localSessionID }).SingleOrDefault();
       });
+    }
+
+    public virtual Task<LoginProperty> FindPropertyByNameAsync(Login login, string propertyName)
+    {
+      if (login == null)
+        throw new ArgumentNullException("login");
+
+      if (propertyName == "")
+        throw new ArgumentNullException("propertyName");
+
+      return Task.Factory.StartNew(() =>
+      {
+        return login.LoginProperties.Where(x => x.PropertyName==propertyName).SingleOrDefault<LoginProperty>();
+        //using (IDbConnection connection = CurrentContext.OpenConnection())
+        //  return connection.Query<LoginProperty>("select DISTINCT * FROM auth_LoginProperties WHERE LoginId=@LoginId AND PropertyName LIKE @PropertyName", new { LoginId = loginId, PropertyName = propertyName }).SingleOrDefault();
+      });
+    }
+
+    public async Task<LoginProperty> UpdatePropertyAsync(Login login, LoginProperty loginProperty)
+    {
+      if (loginProperty == null)
+        throw new ArgumentNullException("loginProperty");
+      LoginProperty _prop = await FindPropertyByNameAsync(login, loginProperty.PropertyName);
+      if (_prop == null)
+      {
+        loginProperty.Id = Guid.NewGuid();
+        await Task.Factory.StartNew(() =>
+        {
+          login.LoginProperties.Add(loginProperty);
+          //IDbConnection connection = CurrentContext.OpenConnection(CurrentContext.CurrentTransaction);
+          //connection.Execute("INSERT INTO auth_LoginProperties(Id, LoginId, PropertyName, PropertyValue) VALUES(@Id, @LoginId, @PropertyName, @PropertyValue)", new { Id = loginProperty.Id, LoginId = loginProperty.LoginId, PropertyName = loginProperty.PropertyName, PropertyValue = loginProperty.PropertyValue }, CurrentContext.CurrentTransaction);
+        });
+      }
+      else
+      {
+        //loginProperty.Id = _prop.Id;
+        await Task.Factory.StartNew(() =>
+        {
+          _prop.PropertyValue = loginProperty.PropertyValue;
+        //  IDbConnection connection = CurrentContext.OpenConnection(CurrentContext.CurrentTransaction);
+        //  connection.Execute("Update auth_LoginProperties SET PropertyName=@PropertyName, PropertyValue=@PropertyValue WHERE Id=PropertyId", new { PropertyName = loginProperty.PropertyName, PropertyValue = loginProperty.PropertyValue, PropertyId = _prop.Id }, CurrentContext.CurrentTransaction);
+        });
+      }
+      return loginProperty;
     }
   }
 }

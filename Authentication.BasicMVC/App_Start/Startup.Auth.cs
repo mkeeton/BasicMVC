@@ -12,6 +12,9 @@ using Authentication.BasicMVC.Models;
 using Authentication.BasicMVC.Domain.Models;
 using Authentication.BasicMVC.Infrastructure;
 using Authentication.BasicMVC.Infrastructure.Repositories;
+using BasicMVC.Core.Data.Interfaces;
+using System.Web;
+//using System.Web.Configuration;
 
 namespace Authentication.BasicMVC
 {
@@ -21,8 +24,9 @@ namespace Authentication.BasicMVC
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context and user manager to use a single instance per request
-            app.CreatePerOwinContext(DbContext.Create);
-            app.CreatePerOwinContext<UnitOfWork>(UnitOfWork.Create);
+            app.CreatePerOwinContext<IDbContext>(DbContext.Create);
+            //app.CreatePerOwinContext<UnitOfWork>(UnitOfWork.Create);
+            app.CreatePerOwinContext<UnitOfWork>(() => UnitOfWork.Create(HttpContext.Current.GetOwinContext().Get<IDbContext>(),MvcApplication.GetCurrentLogins()));
             app.CreatePerOwinContext<App_Start.OwinSettings>(App_Start.OwinSettings.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
