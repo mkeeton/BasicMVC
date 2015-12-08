@@ -77,6 +77,11 @@ namespace Authentication.BasicMVC
           {
             currentLogins.Logins.Remove(currentLogin);
           }
+          var currentSession = currentLogins.ClientSessions.Where(x => x.LocalSessionID == Session.SessionID).FirstOrDefault();
+          if (currentSession != null)
+          {
+            currentLogins.ClientSessions.Remove(currentSession);
+          }
         }
 
     }
