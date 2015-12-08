@@ -155,7 +155,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
       return Task.Factory.StartNew(() =>
       {
-        return login.LoginProperties.Where(x => x.PropertyName==propertyName).SingleOrDefault<LoginProperty>();
+        return login.LoginProperties.Where(x => x.PropertyName == propertyName).SingleOrDefault<LoginProperty>();
         //using (IDbConnection connection = CurrentContext.OpenConnection())
         //  return connection.Query<LoginProperty>("select DISTINCT * FROM auth_LoginProperties WHERE LoginId=@LoginId AND PropertyName LIKE @PropertyName", new { LoginId = loginId, PropertyName = propertyName }).SingleOrDefault();
       });
