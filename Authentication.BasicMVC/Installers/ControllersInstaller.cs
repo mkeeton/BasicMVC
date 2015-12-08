@@ -9,7 +9,7 @@ using Authentication.BasicMVC.Infrastructure.Repositories;
 using BasicMVC.Core.Data.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-
+using System.Web.Http;
 
 namespace Authentication.BasicMVC.Installers
 {
@@ -19,6 +19,9 @@ namespace Authentication.BasicMVC.Installers
     {
       container.Register(Classes.FromThisAssembly()
           .BasedOn<IController>()
+          .LifestyleTransient());
+      container.Register(Classes.FromThisAssembly()
+          .BasedOn<ApiController>()
           .LifestyleTransient());
       container.Register(
           Component.For<IDbContext>()

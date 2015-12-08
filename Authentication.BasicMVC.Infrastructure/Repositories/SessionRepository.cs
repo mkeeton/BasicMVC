@@ -20,7 +20,7 @@ namespace Authentication.BasicMVC.Infrastructure.Repositories
 
     public SessionRepository(LoginList currentSessions)
     {
-      if (sessions == null)
+      if (currentSessions == null)
         throw new ArgumentNullException("connectionString");
 
       this.sessions = currentSessions;

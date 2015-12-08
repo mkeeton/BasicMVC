@@ -38,7 +38,7 @@ namespace Authentication.BasicMVC.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmLogin(string sessionID, string returnUrl)
         {
-          HttpContext.GetOwinContext().Get<UnitOfWork>().BeginWork();
+          WorkManager.BeginWork();
           ClientSession _session = new ClientSession();
           _session.ClientSessionID = new Guid(sessionID);
           _session.LocalSessionID = Session.SessionID;
@@ -59,7 +59,7 @@ namespace Authentication.BasicMVC.Controllers
               }
             }
             await WorkManager.SessionManager.AssignLoginToSessions(Session.SessionID, _login);
-            HttpContext.GetOwinContext().Get<UnitOfWork>().CommitWork();
+            WorkManager.CommitWork();
             if (returnUrl == null || returnUrl == "")
             {
               return RedirectToAction("Manage", "Account");

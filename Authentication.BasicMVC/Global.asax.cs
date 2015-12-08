@@ -16,6 +16,7 @@ using Authentication.BasicMVC.Infrastructure.Repositories;
 using BasicMVC.Core.Data.Interfaces;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
+using System.Web.Http.Dispatcher;
 
 namespace Authentication.BasicMVC
 {
@@ -39,6 +40,7 @@ namespace Authentication.BasicMVC
               .Install(FromAssembly.This());
           var controllerFactory = new Factories.WindsorControllerFactory(container.Kernel);
           ControllerBuilder.Current.SetControllerFactory(controllerFactory);
+          GlobalConfiguration.Configuration.Services.Replace(typeof(IHttpControllerActivator), new Factories.WindsorHttpControllerActivator(container));
         }
 
         public static IWindsorContainer GetContainer()
